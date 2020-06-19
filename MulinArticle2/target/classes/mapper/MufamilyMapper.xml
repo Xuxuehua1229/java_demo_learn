@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.MufamilyMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Mufamily">
+    <id column="name" jdbcType="VARCHAR" property="name" />
+    <result column="familyType" jdbcType="VARCHAR" property="familytype" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
+    <result column="creationDate" jdbcType="CHAR" property="creationdate" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="communityID" jdbcType="VARCHAR" property="communityid" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="fid" jdbcType="VARCHAR" property="fid" />
+    <result column="isSpecial" jdbcType="INTEGER" property="isspecial" />
+    <result column="open_only_10" jdbcType="INTEGER" property="openOnly10" />
+  </resultMap>
+  <resultMap type="com.mulin.bean.Mufamily" id="WithFamilyuserResultMap">
+    <id column="name" jdbcType="VARCHAR" property="name" />
+    <result column="familyType" jdbcType="VARCHAR" property="familytype" />
+    <result column="nickName" jdbcType="VARCHAR" property="nickname" />
+    <result column="tags" jdbcType="VARCHAR" property="tags" />
+    <result column="creationDate" jdbcType="CHAR" property="creationdate" />
+    <result column="icon" jdbcType="VARCHAR" property="icon" />
+    <result column="communityID" jdbcType="VARCHAR" property="communityid" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="fid" jdbcType="VARCHAR" property="fid" />
+    <result column="isSpecial" jdbcType="INTEGER" property="isspecial" />
+    <result column="open_only_10" jdbcType="INTEGER" property="openOnly10" />
+    <collection property="mufamilyusers"  javaType="java.util.List" ofType="com.mulin.bean.Mufamilyuser">
+        <id column="familyName" jdbcType="VARCHAR" property="familyname"/>
+        <result column="isMaster" jdbcType="INTEGER" property="ismaster"/>
+    </collection>
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    name, familyType, nickName, tags, creationDate, icon, communityID, address, fid, 
+    isSpecial, open_only_10
+  </sql>
+  <select id="selectByExample" parameterType="com.mulin.bean.MufamilyExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mufamily
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByUsername" parameterType="com.mulin.bean.MufamilyExample" resultMap="WithFamilyuserResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from mufamily f
+	INNER JOIN
+	mufamilyuser u
+	ON
+	f.`name` = u.familyName
+    WHERE u.username = #{username}
+    ORDER BY u.isMaster desc;
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mufamily
+    where name = #{name,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from mufamily
+    where name = #{name,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.MufamilyExample">
+    delete from mufamily
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.Mufamily">
+    insert into mufamily (name, familyType, nickName, 
+      tags, creationDate, icon, 
+      communityID, address, fid, 
+      isSpecial, open_only_10)
+    values (#{name,jdbcType=VARCHAR}, #{familytype,jdbcType=VARCHAR}, #{nickname,jdbcType=VARCHAR}, 
+      #{tags,jdbcType=VARCHAR}, #{creationdate,jdbcType=CHAR}, #{icon,jdbcType=VARCHAR}, 
+      #{communityid,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{fid,jdbcType=VARCHAR}, 
+      #{isspecial,jdbcType=INTEGER}, #{openOnly10,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.Mufamily">
+    insert into mufamily
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        name,
+      </if>
+      <if test="familytype != null">
+        familyType,
+      </if>
+      <if test="nickname != null">
+        nickName,
+      </if>
+      <if test="tags != null">
+        tags,
+      </if>
+      <if test="creationdate != null">
+        creationDate,
+      </if>
+      <if test="icon != null">
+        icon,
+      </if>
+      <if test="communityid != null">
+        communityID,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="fid != null">
+        fid,
+      </if>
+      <if test="isspecial != null">
+        isSpecial,
+      </if>
+      <if test="openOnly10 != null">
+        open_only_10,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="familytype != null">
+        #{familytype,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=CHAR},
+      </if>
+      <if test="icon != null">
+        #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="communityid != null">
+        #{communityid,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="fid != null">
+        #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="isspecial != null">
+        #{isspecial,jdbcType=INTEGER},
+      </if>
+      <if test="openOnly10 != null">
+        #{openOnly10,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.MufamilyExample" resultType="java.lang.Long">
+    select count(*) from mufamily
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mufamily
+    <set>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.familytype != null">
+        familyType = #{record.familytype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.nickname != null">
+        nickName = #{record.nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tags != null">
+        tags = #{record.tags,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationdate != null">
+        creationDate = #{record.creationdate,jdbcType=CHAR},
+      </if>
+      <if test="record.icon != null">
+        icon = #{record.icon,jdbcType=VARCHAR},
+      </if>
+      <if test="record.communityid != null">
+        communityID = #{record.communityid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.address != null">
+        address = #{record.address,jdbcType=VARCHAR},
+      </if>
+      <if test="record.fid != null">
+        fid = #{record.fid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.isspecial != null">
+        isSpecial = #{record.isspecial,jdbcType=INTEGER},
+      </if>
+      <if test="record.openOnly10 != null">
+        open_only_10 = #{record.openOnly10,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mufamily
+    set name = #{record.name,jdbcType=VARCHAR},
+      familyType = #{record.familytype,jdbcType=VARCHAR},
+      nickName = #{record.nickname,jdbcType=VARCHAR},
+      tags = #{record.tags,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=CHAR},
+      icon = #{record.icon,jdbcType=VARCHAR},
+      communityID = #{record.communityid,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      fid = #{record.fid,jdbcType=VARCHAR},
+      isSpecial = #{record.isspecial,jdbcType=INTEGER},
+      open_only_10 = #{record.openOnly10,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.Mufamily">
+    update mufamily
+    <set>
+      <if test="familytype != null">
+        familyType = #{familytype,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null">
+        nickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="tags != null">
+        tags = #{tags,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        creationDate = #{creationdate,jdbcType=CHAR},
+      </if>
+      <if test="icon != null">
+        icon = #{icon,jdbcType=VARCHAR},
+      </if>
+      <if test="communityid != null">
+        communityID = #{communityid,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="fid != null">
+        fid = #{fid,jdbcType=VARCHAR},
+      </if>
+      <if test="isspecial != null">
+        isSpecial = #{isspecial,jdbcType=INTEGER},
+      </if>
+      <if test="openOnly10 != null">
+        open_only_10 = #{openOnly10,jdbcType=INTEGER},
+      </if>
+    </set>
+    where name = #{name,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Mufamily">
+    update mufamily
+    set familyType = #{familytype,jdbcType=VARCHAR},
+      nickName = #{nickname,jdbcType=VARCHAR},
+      tags = #{tags,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=CHAR},
+      icon = #{icon,jdbcType=VARCHAR},
+      communityID = #{communityid,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      fid = #{fid,jdbcType=VARCHAR},
+      isSpecial = #{isspecial,jdbcType=INTEGER},
+      open_only_10 = #{openOnly10,jdbcType=INTEGER}
+    where name = #{name,jdbcType=VARCHAR}
+  </update>
+</mapper>

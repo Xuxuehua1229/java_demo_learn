@@ -1,0 +1,70 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>睦邻大文章</title>
+    <meta http-equiv="Content-Security-Policy" content="default-src *; style-src 'self' 'unsafe-inline'; script-src 'self' 'unsafe-inline' 'unsafe-eval' ;img-src * 'self' data:;font-src 'self' data:;">
+    <link href="images/favicon_mulin.ico" rel="icon" type="image/x-icon" />
+    <link href="images/favicon_mulin.ico" rel="shortcut icon" type="image/x-icon" />
+    <link rel="stylesheet" href="css/reset.css?2">
+    <link rel="stylesheet" href="css/style.css?1">
+    <script src="js/jquery-3.1.0.js"></script>
+	<!-- 配置文件 -->
+    <script type="text/javascript" src="ueditor/ueditor.config.js"></script>
+    <!-- 编辑器源码文件 -->
+    <script type="text/javascript" src="ueditor/ueditor.all.js"></script>
+    <script type="text/javascript" charset="utf-8" src="ueditor/lang/zh-cn/zh-cn.js"></script>     
+    <script type="text/javascript" src="js/app.js?2" charset="utf-8"></script>
+</head>
+<body>
+    <header>
+        <img src="images/logo_03.png">
+        <p>睦邻大文章</p>
+        <a id="theme" href="#/theme" class="nav">主题</a>
+        <a id="yanxue" href="#/yanxue" class="nav">研学</a>
+        <a id="kecheng" href="#/kecheng" class="nav">课程</a>
+        <a id="chuangzuo" href="#/chuangzuo" class="nav">文创</a>
+        </ul>
+        <div class="login">
+            <span id="userNick"></span>
+            <a id="loginOut">退出</a>
+        </div>
+    </header>
+    <section class="home_section" id="section1">
+        <aside>
+            <ul class="menu">            	
+                <li><a class="active" id="familyactivity" href="#/newArticle?type=familyactivity">家庭征文</a></li>                
+                <li><a id="new_article" href="#/newArticle">添加新文章</a></li>                
+                <li><a id="new_steam" href="#/newArticle?subject=STEAM">添加STEAM</a></li>
+                <li><a id="activity" href="#/newArticle?type=activity">发布活动</a></li>
+                <li><a id="familyactivitylist" href="#/familyactivitylist">我的家庭征文</a></li>
+                <li><a id="activitylist" href="#/activitylist">发布的活动</a></li>
+                <li><a id="joinActivitylist" href="#/joinActivitylist">发表活动总结</a></li>
+                <li><a id="history_article">历史文章</a></li>
+                <li class="media">
+                    <a href="javascipt:;">草稿箱</a>
+                    <ul class="submenu">
+                        <li><a id="temp_familyactivity">家庭征文</a></li>
+                        <li><a id="temp_article">大文章/活动</a></li>
+                        
+                    </ul>
+                </li>               
+               <!--  <li><a id="history_shop">商品发布</a></li> -->
+                <!-- <li class="media">
+                    <a href="">媒体文件</a>
+                    <img src="images/icon_18.png">
+                    <ul class="submenu">
+                        <li><a href="">图片</a></li>
+                        <li><a href="">视频</a></li>
+                        <li><a href="">音乐</a></li>
+                        <li><a href="">链接</a></li>
+                    </ul>
+                </li> -->
+            </ul>
+        </aside>
+        <div id="main">
+
+        </div>
+    </section>
+</body>
+</html>

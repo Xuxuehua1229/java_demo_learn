@@ -1,0 +1,477 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.MugoodsMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Mugoods">
+    <id column="goodsReleaseID" jdbcType="INTEGER" property="goodsreleaseid" />
+    <result column="goodsID" jdbcType="INTEGER" property="goodsid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="familyName" jdbcType="VARCHAR" property="familyname" />
+    <result column="creationDate" jdbcType="VARCHAR" property="creationdate" />
+    <result column="updateDate" jdbcType="VARCHAR" property="updatedate" />
+    <result column="delDate" jdbcType="VARCHAR" property="deldate" />
+    <result column="goodsName" jdbcType="VARCHAR" property="goodsname" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="salesPrice" jdbcType="VARCHAR" property="salesprice" />
+    <result column="roomID" jdbcType="INTEGER" property="roomid" />
+    <result column="activityID" jdbcType="INTEGER" property="activityid" />
+    <result column="isTop" jdbcType="INTEGER" property="istop" />
+    <result column="isDel" jdbcType="INTEGER" property="isdel" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mulin.bean.MugoodsWithBLOBs">
+    <result column="title" jdbcType="LONGVARCHAR" property="title" />
+    <result column="context" jdbcType="LONGVARCHAR" property="context" />
+    <result column="coverImg" jdbcType="LONGVARCHAR" property="coverimg" />
+    <result column="goodsDesc" jdbcType="LONGVARCHAR" property="goodsdesc" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    goodsReleaseID, goodsID, username, familyName, creationDate, updateDate, delDate, 
+    goodsName, price, salesPrice, roomID, activityID, isTop, isDel
+  </sql>
+  <sql id="Blob_Column_List">
+    title, context, coverImg, goodsDesc
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.mulin.bean.MugoodsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mugoods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.mulin.bean.MugoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mugoods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mugoods
+    where goodsReleaseID = #{goodsreleaseid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mugoods
+    where goodsReleaseID = #{goodsreleaseid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.MugoodsExample">
+    delete from mugoods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.MugoodsWithBLOBs">
+    insert into mugoods (goodsReleaseID, goodsID, username, 
+      familyName, creationDate, updateDate, 
+      delDate, goodsName, price, 
+      salesPrice, roomID, activityID, 
+      isTop, isDel, title, 
+      context, coverImg, goodsDesc
+      )
+    values (#{goodsreleaseid,jdbcType=INTEGER}, #{goodsid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{familyname,jdbcType=VARCHAR}, #{creationdate,jdbcType=VARCHAR}, #{updatedate,jdbcType=VARCHAR}, 
+      #{deldate,jdbcType=VARCHAR}, #{goodsname,jdbcType=VARCHAR}, #{price,jdbcType=VARCHAR}, 
+      #{salesprice,jdbcType=VARCHAR}, #{roomid,jdbcType=INTEGER}, #{activityid,jdbcType=INTEGER}, 
+      #{istop,jdbcType=INTEGER}, #{isdel,jdbcType=INTEGER}, #{title,jdbcType=LONGVARCHAR}, 
+      #{context,jdbcType=LONGVARCHAR}, #{coverimg,jdbcType=LONGVARCHAR}, #{goodsdesc,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.MugoodsWithBLOBs">
+    insert into mugoods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodsreleaseid != null">
+        goodsReleaseID,
+      </if>
+      <if test="goodsid != null">
+        goodsID,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="familyname != null">
+        familyName,
+      </if>
+      <if test="creationdate != null">
+        creationDate,
+      </if>
+      <if test="updatedate != null">
+        updateDate,
+      </if>
+      <if test="deldate != null">
+        delDate,
+      </if>
+      <if test="goodsname != null">
+        goodsName,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="salesprice != null">
+        salesPrice,
+      </if>
+      <if test="roomid != null">
+        roomID,
+      </if>
+      <if test="activityid != null">
+        activityID,
+      </if>
+      <if test="istop != null">
+        isTop,
+      </if>
+      <if test="isdel != null">
+        isDel,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="context != null">
+        context,
+      </if>
+      <if test="coverimg != null">
+        coverImg,
+      </if>
+      <if test="goodsdesc != null">
+        goodsDesc,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodsreleaseid != null">
+        #{goodsreleaseid,jdbcType=INTEGER},
+      </if>
+      <if test="goodsid != null">
+        #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="familyname != null">
+        #{familyname,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=VARCHAR},
+      </if>
+      <if test="deldate != null">
+        #{deldate,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null">
+        #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="salesprice != null">
+        #{salesprice,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="activityid != null">
+        #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="istop != null">
+        #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="context != null">
+        #{context,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="coverimg != null">
+        #{coverimg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsdesc != null">
+        #{goodsdesc,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.MugoodsExample" resultType="java.lang.Long">
+    select count(*) from mugoods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mugoods
+    <set>
+      <if test="record.goodsreleaseid != null">
+        goodsReleaseID = #{record.goodsreleaseid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodsid != null">
+        goodsID = #{record.goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.familyname != null">
+        familyName = #{record.familyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationdate != null">
+        creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedate != null">
+        updateDate = #{record.updatedate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deldate != null">
+        delDate = #{record.deldate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodsname != null">
+        goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesprice != null">
+        salesPrice = #{record.salesprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomid != null">
+        roomID = #{record.roomid,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityid != null">
+        activityID = #{record.activityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.istop != null">
+        isTop = #{record.istop,jdbcType=INTEGER},
+      </if>
+      <if test="record.isdel != null">
+        isDel = #{record.isdel,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.context != null">
+        context = #{record.context,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.coverimg != null">
+        coverImg = #{record.coverimg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.goodsdesc != null">
+        goodsDesc = #{record.goodsdesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update mugoods
+    set goodsReleaseID = #{record.goodsreleaseid,jdbcType=INTEGER},
+      goodsID = #{record.goodsid,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      familyName = #{record.familyname,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      updateDate = #{record.updatedate,jdbcType=VARCHAR},
+      delDate = #{record.deldate,jdbcType=VARCHAR},
+      goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR},
+      salesPrice = #{record.salesprice,jdbcType=VARCHAR},
+      roomID = #{record.roomid,jdbcType=INTEGER},
+      activityID = #{record.activityid,jdbcType=INTEGER},
+      isTop = #{record.istop,jdbcType=INTEGER},
+      isDel = #{record.isdel,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=LONGVARCHAR},
+      context = #{record.context,jdbcType=LONGVARCHAR},
+      coverImg = #{record.coverimg,jdbcType=LONGVARCHAR},
+      goodsDesc = #{record.goodsdesc,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mugoods
+    set goodsReleaseID = #{record.goodsreleaseid,jdbcType=INTEGER},
+      goodsID = #{record.goodsid,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      familyName = #{record.familyname,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      updateDate = #{record.updatedate,jdbcType=VARCHAR},
+      delDate = #{record.deldate,jdbcType=VARCHAR},
+      goodsName = #{record.goodsname,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR},
+      salesPrice = #{record.salesprice,jdbcType=VARCHAR},
+      roomID = #{record.roomid,jdbcType=INTEGER},
+      activityID = #{record.activityid,jdbcType=INTEGER},
+      isTop = #{record.istop,jdbcType=INTEGER},
+      isDel = #{record.isdel,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.MugoodsWithBLOBs">
+    update mugoods
+    <set>
+      <if test="goodsid != null">
+        goodsID = #{goodsid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="familyname != null">
+        familyName = #{familyname,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        creationDate = #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null">
+        updateDate = #{updatedate,jdbcType=VARCHAR},
+      </if>
+      <if test="deldate != null">
+        delDate = #{deldate,jdbcType=VARCHAR},
+      </if>
+      <if test="goodsname != null">
+        goodsName = #{goodsname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="salesprice != null">
+        salesPrice = #{salesprice,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        roomID = #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="activityid != null">
+        activityID = #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="istop != null">
+        isTop = #{istop,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        isDel = #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="context != null">
+        context = #{context,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="coverimg != null">
+        coverImg = #{coverimg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodsdesc != null">
+        goodsDesc = #{goodsdesc,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where goodsReleaseID = #{goodsreleaseid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mulin.bean.MugoodsWithBLOBs">
+    update mugoods
+    set goodsID = #{goodsid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      familyName = #{familyname,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=VARCHAR},
+      updateDate = #{updatedate,jdbcType=VARCHAR},
+      delDate = #{deldate,jdbcType=VARCHAR},
+      goodsName = #{goodsname,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      salesPrice = #{salesprice,jdbcType=VARCHAR},
+      roomID = #{roomid,jdbcType=INTEGER},
+      activityID = #{activityid,jdbcType=INTEGER},
+      isTop = #{istop,jdbcType=INTEGER},
+      isDel = #{isdel,jdbcType=INTEGER},
+      title = #{title,jdbcType=LONGVARCHAR},
+      context = #{context,jdbcType=LONGVARCHAR},
+      coverImg = #{coverimg,jdbcType=LONGVARCHAR},
+      goodsDesc = #{goodsdesc,jdbcType=LONGVARCHAR}
+    where goodsReleaseID = #{goodsreleaseid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Mugoods">
+    update mugoods
+    set goodsID = #{goodsid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      familyName = #{familyname,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=VARCHAR},
+      updateDate = #{updatedate,jdbcType=VARCHAR},
+      delDate = #{deldate,jdbcType=VARCHAR},
+      goodsName = #{goodsname,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      salesPrice = #{salesprice,jdbcType=VARCHAR},
+      roomID = #{roomid,jdbcType=INTEGER},
+      activityID = #{activityid,jdbcType=INTEGER},
+      isTop = #{istop,jdbcType=INTEGER},
+      isDel = #{isdel,jdbcType=INTEGER}
+    where goodsReleaseID = #{goodsreleaseid,jdbcType=INTEGER}
+  </update>
+</mapper>

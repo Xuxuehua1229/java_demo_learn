@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.MuactiveuserinfoMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Muactiveuserinfo">
+    <id column="userinfoId" jdbcType="INTEGER" property="userinfoid" />
+    <result column="activityID" jdbcType="INTEGER" property="activityid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="signDate" jdbcType="VARCHAR" property="signdate" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="age" jdbcType="VARCHAR" property="age" />
+    <result column="sex" jdbcType="VARCHAR" property="sex" />
+    <result column="mail" jdbcType="VARCHAR" property="mail" />
+    <result column="tel" jdbcType="VARCHAR" property="tel" />
+    <result column="company" jdbcType="VARCHAR" property="company" />
+    <result column="joinnum" jdbcType="VARCHAR" property="joinnum" />
+    <result column="childage" jdbcType="VARCHAR" property="childage" />
+    <result column="childsex" jdbcType="VARCHAR" property="childsex" />
+    <result column="mark1" jdbcType="VARCHAR" property="mark1" />
+    <result column="mark2" jdbcType="VARCHAR" property="mark2" />
+    <result column="mark3" jdbcType="VARCHAR" property="mark3" />
+    <result column="mark4" jdbcType="VARCHAR" property="mark4" />
+    <result column="mark5" jdbcType="VARCHAR" property="mark5" />
+    <result column="mark6" jdbcType="VARCHAR" property="mark6" />
+    <result column="mark7" jdbcType="VARCHAR" property="mark7" />
+    <result column="mark8" jdbcType="VARCHAR" property="mark8" />
+    <result column="mark9" jdbcType="VARCHAR" property="mark9" />
+    <result column="mark10" jdbcType="VARCHAR" property="mark10" />
+    <result column="issignup" jdbcType="VARCHAR" property="issignup" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    userinfoId, activityID, username, signDate, name, age, sex, mail, tel, company, joinnum, 
+    childage, childsex, mark1, mark2, mark3, mark4, mark5, mark6, mark7, mark8, mark9, 
+    mark10, issignup
+  </sql>
+  <select id="selectByExample" parameterType="com.mulin.bean.MuactiveuserinfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from muactiveuserinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from muactiveuserinfo
+    where userinfoId = #{userinfoid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from muactiveuserinfo
+    where userinfoId = #{userinfoid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.MuactiveuserinfoExample">
+    delete from muactiveuserinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.Muactiveuserinfo">
+    insert into muactiveuserinfo (userinfoId, activityID, username, 
+      signDate, name, age, 
+      sex, mail, tel, company, 
+      joinnum, childage, childsex, 
+      mark1, mark2, mark3, 
+      mark4, mark5, mark6, 
+      mark7, mark8, mark9, 
+      mark10, issignup)
+    values (#{userinfoid,jdbcType=INTEGER}, #{activityid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, 
+      #{signdate,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{age,jdbcType=VARCHAR}, 
+      #{sex,jdbcType=VARCHAR}, #{mail,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{company,jdbcType=VARCHAR}, 
+      #{joinnum,jdbcType=VARCHAR}, #{childage,jdbcType=VARCHAR}, #{childsex,jdbcType=VARCHAR}, 
+      #{mark1,jdbcType=VARCHAR}, #{mark2,jdbcType=VARCHAR}, #{mark3,jdbcType=VARCHAR}, 
+      #{mark4,jdbcType=VARCHAR}, #{mark5,jdbcType=VARCHAR}, #{mark6,jdbcType=VARCHAR}, 
+      #{mark7,jdbcType=VARCHAR}, #{mark8,jdbcType=VARCHAR}, #{mark9,jdbcType=VARCHAR}, 
+      #{mark10,jdbcType=VARCHAR}, #{issignup,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.Muactiveuserinfo">
+    insert into muactiveuserinfo
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="userinfoid != null">
+        userinfoId,
+      </if>
+      <if test="activityid != null">
+        activityID,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="signdate != null">
+        signDate,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="sex != null">
+        sex,
+      </if>
+      <if test="mail != null">
+        mail,
+      </if>
+      <if test="tel != null">
+        tel,
+      </if>
+      <if test="company != null">
+        company,
+      </if>
+      <if test="joinnum != null">
+        joinnum,
+      </if>
+      <if test="childage != null">
+        childage,
+      </if>
+      <if test="childsex != null">
+        childsex,
+      </if>
+      <if test="mark1 != null">
+        mark1,
+      </if>
+      <if test="mark2 != null">
+        mark2,
+      </if>
+      <if test="mark3 != null">
+        mark3,
+      </if>
+      <if test="mark4 != null">
+        mark4,
+      </if>
+      <if test="mark5 != null">
+        mark5,
+      </if>
+      <if test="mark6 != null">
+        mark6,
+      </if>
+      <if test="mark7 != null">
+        mark7,
+      </if>
+      <if test="mark8 != null">
+        mark8,
+      </if>
+      <if test="mark9 != null">
+        mark9,
+      </if>
+      <if test="mark10 != null">
+        mark10,
+      </if>
+      <if test="issignup != null">
+        issignup,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="userinfoid != null">
+        #{userinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="activityid != null">
+        #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="signdate != null">
+        #{signdate,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null">
+        #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="joinnum != null">
+        #{joinnum,jdbcType=VARCHAR},
+      </if>
+      <if test="childage != null">
+        #{childage,jdbcType=VARCHAR},
+      </if>
+      <if test="childsex != null">
+        #{childsex,jdbcType=VARCHAR},
+      </if>
+      <if test="mark1 != null">
+        #{mark1,jdbcType=VARCHAR},
+      </if>
+      <if test="mark2 != null">
+        #{mark2,jdbcType=VARCHAR},
+      </if>
+      <if test="mark3 != null">
+        #{mark3,jdbcType=VARCHAR},
+      </if>
+      <if test="mark4 != null">
+        #{mark4,jdbcType=VARCHAR},
+      </if>
+      <if test="mark5 != null">
+        #{mark5,jdbcType=VARCHAR},
+      </if>
+      <if test="mark6 != null">
+        #{mark6,jdbcType=VARCHAR},
+      </if>
+      <if test="mark7 != null">
+        #{mark7,jdbcType=VARCHAR},
+      </if>
+      <if test="mark8 != null">
+        #{mark8,jdbcType=VARCHAR},
+      </if>
+      <if test="mark9 != null">
+        #{mark9,jdbcType=VARCHAR},
+      </if>
+      <if test="mark10 != null">
+        #{mark10,jdbcType=VARCHAR},
+      </if>
+      <if test="issignup != null">
+        #{issignup,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.MuactiveuserinfoExample" resultType="java.lang.Long">
+    select count(*) from muactiveuserinfo
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update muactiveuserinfo
+    <set>
+      <if test="record.userinfoid != null">
+        userinfoId = #{record.userinfoid,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityid != null">
+        activityID = #{record.activityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signdate != null">
+        signDate = #{record.signdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sex != null">
+        sex = #{record.sex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mail != null">
+        mail = #{record.mail,jdbcType=VARCHAR},
+      </if>
+      <if test="record.tel != null">
+        tel = #{record.tel,jdbcType=VARCHAR},
+      </if>
+      <if test="record.company != null">
+        company = #{record.company,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinnum != null">
+        joinnum = #{record.joinnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.childage != null">
+        childage = #{record.childage,jdbcType=VARCHAR},
+      </if>
+      <if test="record.childsex != null">
+        childsex = #{record.childsex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark1 != null">
+        mark1 = #{record.mark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark2 != null">
+        mark2 = #{record.mark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark3 != null">
+        mark3 = #{record.mark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark4 != null">
+        mark4 = #{record.mark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark5 != null">
+        mark5 = #{record.mark5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark6 != null">
+        mark6 = #{record.mark6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark7 != null">
+        mark7 = #{record.mark7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark8 != null">
+        mark8 = #{record.mark8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark9 != null">
+        mark9 = #{record.mark9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark10 != null">
+        mark10 = #{record.mark10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.issignup != null">
+        issignup = #{record.issignup,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update muactiveuserinfo
+    set userinfoId = #{record.userinfoid,jdbcType=INTEGER},
+      activityID = #{record.activityid,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      signDate = #{record.signdate,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=VARCHAR},
+      sex = #{record.sex,jdbcType=VARCHAR},
+      mail = #{record.mail,jdbcType=VARCHAR},
+      tel = #{record.tel,jdbcType=VARCHAR},
+      company = #{record.company,jdbcType=VARCHAR},
+      joinnum = #{record.joinnum,jdbcType=VARCHAR},
+      childage = #{record.childage,jdbcType=VARCHAR},
+      childsex = #{record.childsex,jdbcType=VARCHAR},
+      mark1 = #{record.mark1,jdbcType=VARCHAR},
+      mark2 = #{record.mark2,jdbcType=VARCHAR},
+      mark3 = #{record.mark3,jdbcType=VARCHAR},
+      mark4 = #{record.mark4,jdbcType=VARCHAR},
+      mark5 = #{record.mark5,jdbcType=VARCHAR},
+      mark6 = #{record.mark6,jdbcType=VARCHAR},
+      mark7 = #{record.mark7,jdbcType=VARCHAR},
+      mark8 = #{record.mark8,jdbcType=VARCHAR},
+      mark9 = #{record.mark9,jdbcType=VARCHAR},
+      mark10 = #{record.mark10,jdbcType=VARCHAR},
+      issignup = #{record.issignup,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.Muactiveuserinfo">
+    update muactiveuserinfo
+    <set>
+      <if test="activityid != null">
+        activityID = #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="signdate != null">
+        signDate = #{signdate,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        age = #{age,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null">
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="mail != null">
+        mail = #{mail,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null">
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="company != null">
+        company = #{company,jdbcType=VARCHAR},
+      </if>
+      <if test="joinnum != null">
+        joinnum = #{joinnum,jdbcType=VARCHAR},
+      </if>
+      <if test="childage != null">
+        childage = #{childage,jdbcType=VARCHAR},
+      </if>
+      <if test="childsex != null">
+        childsex = #{childsex,jdbcType=VARCHAR},
+      </if>
+      <if test="mark1 != null">
+        mark1 = #{mark1,jdbcType=VARCHAR},
+      </if>
+      <if test="mark2 != null">
+        mark2 = #{mark2,jdbcType=VARCHAR},
+      </if>
+      <if test="mark3 != null">
+        mark3 = #{mark3,jdbcType=VARCHAR},
+      </if>
+      <if test="mark4 != null">
+        mark4 = #{mark4,jdbcType=VARCHAR},
+      </if>
+      <if test="mark5 != null">
+        mark5 = #{mark5,jdbcType=VARCHAR},
+      </if>
+      <if test="mark6 != null">
+        mark6 = #{mark6,jdbcType=VARCHAR},
+      </if>
+      <if test="mark7 != null">
+        mark7 = #{mark7,jdbcType=VARCHAR},
+      </if>
+      <if test="mark8 != null">
+        mark8 = #{mark8,jdbcType=VARCHAR},
+      </if>
+      <if test="mark9 != null">
+        mark9 = #{mark9,jdbcType=VARCHAR},
+      </if>
+      <if test="mark10 != null">
+        mark10 = #{mark10,jdbcType=VARCHAR},
+      </if>
+      <if test="issignup != null">
+        issignup = #{issignup,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where userinfoId = #{userinfoid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Muactiveuserinfo">
+    update muactiveuserinfo
+    set activityID = #{activityid,jdbcType=INTEGER},
+      username = #{username,jdbcType=VARCHAR},
+      signDate = #{signdate,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      age = #{age,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      mail = #{mail,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      company = #{company,jdbcType=VARCHAR},
+      joinnum = #{joinnum,jdbcType=VARCHAR},
+      childage = #{childage,jdbcType=VARCHAR},
+      childsex = #{childsex,jdbcType=VARCHAR},
+      mark1 = #{mark1,jdbcType=VARCHAR},
+      mark2 = #{mark2,jdbcType=VARCHAR},
+      mark3 = #{mark3,jdbcType=VARCHAR},
+      mark4 = #{mark4,jdbcType=VARCHAR},
+      mark5 = #{mark5,jdbcType=VARCHAR},
+      mark6 = #{mark6,jdbcType=VARCHAR},
+      mark7 = #{mark7,jdbcType=VARCHAR},
+      mark8 = #{mark8,jdbcType=VARCHAR},
+      mark9 = #{mark9,jdbcType=VARCHAR},
+      mark10 = #{mark10,jdbcType=VARCHAR},
+      issignup = #{issignup,jdbcType=VARCHAR}
+    where userinfoId = #{userinfoid,jdbcType=INTEGER}
+  </update>
+</mapper>

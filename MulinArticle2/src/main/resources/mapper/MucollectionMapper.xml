@@ -1,0 +1,373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.MucollectionMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Mucollection">
+    <id column="collectId" jdbcType="INTEGER" property="collectid" />
+    <result column="activityId" jdbcType="INTEGER" property="activityid" />
+    <result column="collectName" jdbcType="VARCHAR" property="collectname" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="creationDate" jdbcType="VARCHAR" property="creationdate" />
+    <result column="author" jdbcType="VARCHAR" property="author" />
+    <result column="roomType" jdbcType="VARCHAR" property="roomtype" />
+    <result column="contextType" jdbcType="VARCHAR" property="contexttype" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mulin.bean.MucollectionWithBLOBs">
+    <result column="context" jdbcType="LONGVARCHAR" property="context" />
+    <result column="activityContext" jdbcType="LONGVARCHAR" property="activitycontext" />
+    <result column="coverImg" jdbcType="LONGVARCHAR" property="coverimg" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    collectId, activityId, collectName, username, creationDate, author, roomType, contextType, 
+    title
+  </sql>
+  <sql id="Blob_Column_List">
+    context, activityContext, coverImg
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.mulin.bean.MucollectionExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mucollection
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.mulin.bean.MucollectionExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mucollection
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mucollection
+    where collectId = #{collectid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mucollection
+    where collectId = #{collectid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.MucollectionExample">
+    delete from mucollection
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.MucollectionWithBLOBs">
+    insert into mucollection (collectId, activityId, collectName, 
+      username, creationDate, author, 
+      roomType, contextType, title, 
+      context, activityContext, coverImg
+      )
+    values (#{collectid,jdbcType=INTEGER}, #{activityid,jdbcType=INTEGER}, #{collectname,jdbcType=VARCHAR}, 
+      #{username,jdbcType=VARCHAR}, #{creationdate,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, 
+      #{roomtype,jdbcType=VARCHAR}, #{contexttype,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, 
+      #{context,jdbcType=LONGVARCHAR}, #{activitycontext,jdbcType=LONGVARCHAR}, #{coverimg,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.MucollectionWithBLOBs">
+    insert into mucollection
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="collectid != null">
+        collectId,
+      </if>
+      <if test="activityid != null">
+        activityId,
+      </if>
+      <if test="collectname != null">
+        collectName,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="creationdate != null">
+        creationDate,
+      </if>
+      <if test="author != null">
+        author,
+      </if>
+      <if test="roomtype != null">
+        roomType,
+      </if>
+      <if test="contexttype != null">
+        contextType,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="context != null">
+        context,
+      </if>
+      <if test="activitycontext != null">
+        activityContext,
+      </if>
+      <if test="coverimg != null">
+        coverImg,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="collectid != null">
+        #{collectid,jdbcType=INTEGER},
+      </if>
+      <if test="activityid != null">
+        #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="collectname != null">
+        #{collectname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="roomtype != null">
+        #{roomtype,jdbcType=VARCHAR},
+      </if>
+      <if test="contexttype != null">
+        #{contexttype,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null">
+        #{context,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="activitycontext != null">
+        #{activitycontext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="coverimg != null">
+        #{coverimg,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.MucollectionExample" resultType="java.lang.Long">
+    select count(*) from mucollection
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mucollection
+    <set>
+      <if test="record.collectid != null">
+        collectId = #{record.collectid,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityid != null">
+        activityId = #{record.activityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.collectname != null">
+        collectName = #{record.collectname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationdate != null">
+        creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.author != null">
+        author = #{record.author,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomtype != null">
+        roomType = #{record.roomtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.contexttype != null">
+        contextType = #{record.contexttype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.context != null">
+        context = #{record.context,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.activitycontext != null">
+        activityContext = #{record.activitycontext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.coverimg != null">
+        coverImg = #{record.coverimg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update mucollection
+    set collectId = #{record.collectid,jdbcType=INTEGER},
+      activityId = #{record.activityid,jdbcType=INTEGER},
+      collectName = #{record.collectname,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      roomType = #{record.roomtype,jdbcType=VARCHAR},
+      contextType = #{record.contexttype,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR},
+      context = #{record.context,jdbcType=LONGVARCHAR},
+      activityContext = #{record.activitycontext,jdbcType=LONGVARCHAR},
+      coverImg = #{record.coverimg,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mucollection
+    set collectId = #{record.collectid,jdbcType=INTEGER},
+      activityId = #{record.activityid,jdbcType=INTEGER},
+      collectName = #{record.collectname,jdbcType=VARCHAR},
+      username = #{record.username,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      author = #{record.author,jdbcType=VARCHAR},
+      roomType = #{record.roomtype,jdbcType=VARCHAR},
+      contextType = #{record.contexttype,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.MucollectionWithBLOBs">
+    update mucollection
+    <set>
+      <if test="activityid != null">
+        activityId = #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="collectname != null">
+        collectName = #{collectname,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        creationDate = #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="author != null">
+        author = #{author,jdbcType=VARCHAR},
+      </if>
+      <if test="roomtype != null">
+        roomType = #{roomtype,jdbcType=VARCHAR},
+      </if>
+      <if test="contexttype != null">
+        contextType = #{contexttype,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null">
+        context = #{context,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="activitycontext != null">
+        activityContext = #{activitycontext,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="coverimg != null">
+        coverImg = #{coverimg,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where collectId = #{collectid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mulin.bean.MucollectionWithBLOBs">
+    update mucollection
+    set activityId = #{activityid,jdbcType=INTEGER},
+      collectName = #{collectname,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      roomType = #{roomtype,jdbcType=VARCHAR},
+      contextType = #{contexttype,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR},
+      context = #{context,jdbcType=LONGVARCHAR},
+      activityContext = #{activitycontext,jdbcType=LONGVARCHAR},
+      coverImg = #{coverimg,jdbcType=LONGVARCHAR}
+    where collectId = #{collectid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Mucollection">
+    update mucollection
+    set activityId = #{activityid,jdbcType=INTEGER},
+      collectName = #{collectname,jdbcType=VARCHAR},
+      username = #{username,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=VARCHAR},
+      author = #{author,jdbcType=VARCHAR},
+      roomType = #{roomtype,jdbcType=VARCHAR},
+      contextType = #{contexttype,jdbcType=VARCHAR},
+      title = #{title,jdbcType=VARCHAR}
+    where collectId = #{collectid,jdbcType=INTEGER}
+  </update>
+</mapper>

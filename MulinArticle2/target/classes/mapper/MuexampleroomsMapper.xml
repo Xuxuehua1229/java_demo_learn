@@ -1,0 +1,268 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.MuexampleroomsMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Muexamplerooms">
+    <id column="exampleId" jdbcType="INTEGER" property="exampleid" />
+    <result column="exampleName" jdbcType="VARCHAR" property="examplename" />
+    <result column="creationDate" jdbcType="VARCHAR" property="creationdate" />
+    <result column="exampleType" jdbcType="INTEGER" property="exampletype" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mulin.bean.MuexampleroomsWithBLOBs">
+    <result column="headImage" jdbcType="LONGVARCHAR" property="headimage" />
+    <result column="introduceContent" jdbcType="LONGVARCHAR" property="introducecontent" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    exampleId, exampleName, creationDate, exampleType
+  </sql>
+  <sql id="Blob_Column_List">
+    headImage, introduceContent
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.mulin.bean.MuexampleroomsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from muexamplerooms
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.mulin.bean.MuexampleroomsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from muexamplerooms
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from muexamplerooms
+    where exampleId = #{exampleid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from muexamplerooms
+    where exampleId = #{exampleid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.MuexampleroomsExample">
+    delete from muexamplerooms
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.MuexampleroomsWithBLOBs">
+    insert into muexamplerooms (exampleId, exampleName, creationDate, 
+      exampleType, headImage, introduceContent
+      )
+    values (#{exampleid,jdbcType=INTEGER}, #{examplename,jdbcType=VARCHAR}, #{creationdate,jdbcType=VARCHAR}, 
+      #{exampletype,jdbcType=INTEGER}, #{headimage,jdbcType=LONGVARCHAR}, #{introducecontent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.MuexampleroomsWithBLOBs">
+    insert into muexamplerooms
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="exampleid != null">
+        exampleId,
+      </if>
+      <if test="examplename != null">
+        exampleName,
+      </if>
+      <if test="creationdate != null">
+        creationDate,
+      </if>
+      <if test="exampletype != null">
+        exampleType,
+      </if>
+      <if test="headimage != null">
+        headImage,
+      </if>
+      <if test="introducecontent != null">
+        introduceContent,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="exampleid != null">
+        #{exampleid,jdbcType=INTEGER},
+      </if>
+      <if test="examplename != null">
+        #{examplename,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="exampletype != null">
+        #{exampletype,jdbcType=INTEGER},
+      </if>
+      <if test="headimage != null">
+        #{headimage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introducecontent != null">
+        #{introducecontent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.MuexampleroomsExample" resultType="java.lang.Long">
+    select count(*) from muexamplerooms
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update muexamplerooms
+    <set>
+      <if test="record.exampleid != null">
+        exampleId = #{record.exampleid,jdbcType=INTEGER},
+      </if>
+      <if test="record.examplename != null">
+        exampleName = #{record.examplename,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationdate != null">
+        creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.exampletype != null">
+        exampleType = #{record.exampletype,jdbcType=INTEGER},
+      </if>
+      <if test="record.headimage != null">
+        headImage = #{record.headimage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.introducecontent != null">
+        introduceContent = #{record.introducecontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update muexamplerooms
+    set exampleId = #{record.exampleid,jdbcType=INTEGER},
+      exampleName = #{record.examplename,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      exampleType = #{record.exampletype,jdbcType=INTEGER},
+      headImage = #{record.headimage,jdbcType=LONGVARCHAR},
+      introduceContent = #{record.introducecontent,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update muexamplerooms
+    set exampleId = #{record.exampleid,jdbcType=INTEGER},
+      exampleName = #{record.examplename,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      exampleType = #{record.exampletype,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.MuexampleroomsWithBLOBs">
+    update muexamplerooms
+    <set>
+      <if test="examplename != null">
+        exampleName = #{examplename,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        creationDate = #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="exampletype != null">
+        exampleType = #{exampletype,jdbcType=INTEGER},
+      </if>
+      <if test="headimage != null">
+        headImage = #{headimage,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="introducecontent != null">
+        introduceContent = #{introducecontent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where exampleId = #{exampleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mulin.bean.MuexampleroomsWithBLOBs">
+    update muexamplerooms
+    set exampleName = #{examplename,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=VARCHAR},
+      exampleType = #{exampletype,jdbcType=INTEGER},
+      headImage = #{headimage,jdbcType=LONGVARCHAR},
+      introduceContent = #{introducecontent,jdbcType=LONGVARCHAR}
+    where exampleId = #{exampleid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Muexamplerooms">
+    update muexamplerooms
+    set exampleName = #{examplename,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=VARCHAR},
+      exampleType = #{exampletype,jdbcType=INTEGER}
+    where exampleId = #{exampleid,jdbcType=INTEGER}
+  </update>
+</mapper>

@@ -1,0 +1,338 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.MuthemeMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Mutheme">
+    <id column="id" jdbcType="INTEGER" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="creationDate" jdbcType="VARCHAR" property="creationdate" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="title" jdbcType="VARCHAR" property="title" />
+    <result column="imgUrl" jdbcType="VARCHAR" property="imgurl" />
+    <result column="themeDesc" jdbcType="VARCHAR" property="themedesc" />
+    <result column="mark1" jdbcType="VARCHAR" property="mark1" />
+    <result column="mark2" jdbcType="VARCHAR" property="mark2" />
+    <result column="mark3" jdbcType="VARCHAR" property="mark3" />
+    <result column="mark4" jdbcType="VARCHAR" property="mark4" />
+    <result column="mark5" jdbcType="VARCHAR" property="mark5" />
+    <result column="roomID" jdbcType="INTEGER" property="roomid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, username, creationDate, type, title, imgUrl, themeDesc, mark1, mark2, mark3, 
+    mark4, mark5, roomID
+  </sql>
+  <select id="selectByExample" parameterType="com.mulin.bean.MuthemeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mutheme
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mutheme
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mutheme
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.MuthemeExample">
+    delete from mutheme
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.Mutheme">
+    insert into mutheme (id, username, creationDate, 
+      type, title, imgUrl, 
+      themeDesc, mark1, mark2, 
+      mark3, mark4, mark5, 
+      roomID)
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{creationdate,jdbcType=VARCHAR}, 
+      #{type,jdbcType=INTEGER}, #{title,jdbcType=VARCHAR}, #{imgurl,jdbcType=VARCHAR}, 
+      #{themedesc,jdbcType=VARCHAR}, #{mark1,jdbcType=VARCHAR}, #{mark2,jdbcType=VARCHAR}, 
+      #{mark3,jdbcType=VARCHAR}, #{mark4,jdbcType=VARCHAR}, #{mark5,jdbcType=VARCHAR}, 
+      #{roomid,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.Mutheme">
+    insert into mutheme
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="creationdate != null">
+        creationDate,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="imgurl != null">
+        imgUrl,
+      </if>
+      <if test="themedesc != null">
+        themeDesc,
+      </if>
+      <if test="mark1 != null">
+        mark1,
+      </if>
+      <if test="mark2 != null">
+        mark2,
+      </if>
+      <if test="mark3 != null">
+        mark3,
+      </if>
+      <if test="mark4 != null">
+        mark4,
+      </if>
+      <if test="mark5 != null">
+        mark5,
+      </if>
+      <if test="roomid != null">
+        roomID,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="themedesc != null">
+        #{themedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="mark1 != null">
+        #{mark1,jdbcType=VARCHAR},
+      </if>
+      <if test="mark2 != null">
+        #{mark2,jdbcType=VARCHAR},
+      </if>
+      <if test="mark3 != null">
+        #{mark3,jdbcType=VARCHAR},
+      </if>
+      <if test="mark4 != null">
+        #{mark4,jdbcType=VARCHAR},
+      </if>
+      <if test="mark5 != null">
+        #{mark5,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        #{roomid,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.MuthemeExample" resultType="java.lang.Long">
+    select count(*) from mutheme
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mutheme
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationdate != null">
+        creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=VARCHAR},
+      </if>
+      <if test="record.imgurl != null">
+        imgUrl = #{record.imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.themedesc != null">
+        themeDesc = #{record.themedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark1 != null">
+        mark1 = #{record.mark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark2 != null">
+        mark2 = #{record.mark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark3 != null">
+        mark3 = #{record.mark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark4 != null">
+        mark4 = #{record.mark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark5 != null">
+        mark5 = #{record.mark5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomid != null">
+        roomID = #{record.roomid,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mutheme
+    set id = #{record.id,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      type = #{record.type,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      imgUrl = #{record.imgurl,jdbcType=VARCHAR},
+      themeDesc = #{record.themedesc,jdbcType=VARCHAR},
+      mark1 = #{record.mark1,jdbcType=VARCHAR},
+      mark2 = #{record.mark2,jdbcType=VARCHAR},
+      mark3 = #{record.mark3,jdbcType=VARCHAR},
+      mark4 = #{record.mark4,jdbcType=VARCHAR},
+      mark5 = #{record.mark5,jdbcType=VARCHAR},
+      roomID = #{record.roomid,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.Mutheme">
+    update mutheme
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        creationDate = #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="imgurl != null">
+        imgUrl = #{imgurl,jdbcType=VARCHAR},
+      </if>
+      <if test="themedesc != null">
+        themeDesc = #{themedesc,jdbcType=VARCHAR},
+      </if>
+      <if test="mark1 != null">
+        mark1 = #{mark1,jdbcType=VARCHAR},
+      </if>
+      <if test="mark2 != null">
+        mark2 = #{mark2,jdbcType=VARCHAR},
+      </if>
+      <if test="mark3 != null">
+        mark3 = #{mark3,jdbcType=VARCHAR},
+      </if>
+      <if test="mark4 != null">
+        mark4 = #{mark4,jdbcType=VARCHAR},
+      </if>
+      <if test="mark5 != null">
+        mark5 = #{mark5,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        roomID = #{roomid,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Mutheme">
+    update mutheme
+    set username = #{username,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=VARCHAR},
+      type = #{type,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      imgUrl = #{imgurl,jdbcType=VARCHAR},
+      themeDesc = #{themedesc,jdbcType=VARCHAR},
+      mark1 = #{mark1,jdbcType=VARCHAR},
+      mark2 = #{mark2,jdbcType=VARCHAR},
+      mark3 = #{mark3,jdbcType=VARCHAR},
+      mark4 = #{mark4,jdbcType=VARCHAR},
+      mark5 = #{mark5,jdbcType=VARCHAR},
+      roomID = #{roomid,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>

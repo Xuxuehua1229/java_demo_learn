@@ -1,0 +1,181 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.MustreetsMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Mustreets">
+    <id column="streetId" jdbcType="BIGINT" property="streetid" />
+    <result column="streetName" jdbcType="VARCHAR" property="streetname" />
+    <result column="districtId" jdbcType="BIGINT" property="districtid" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    streetId, streetName, districtId
+  </sql>
+  <select id="selectByExample" parameterType="com.mulin.bean.MustreetsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mustreets
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from mustreets
+    where streetId = #{streetid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from mustreets
+    where streetId = #{streetid,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.MustreetsExample">
+    delete from mustreets
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.Mustreets">
+    insert into mustreets (streetId, streetName, districtId
+      )
+    values (#{streetid,jdbcType=BIGINT}, #{streetname,jdbcType=VARCHAR}, #{districtid,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.Mustreets">
+    insert into mustreets
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="streetid != null">
+        streetId,
+      </if>
+      <if test="streetname != null">
+        streetName,
+      </if>
+      <if test="districtid != null">
+        districtId,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="streetid != null">
+        #{streetid,jdbcType=BIGINT},
+      </if>
+      <if test="streetname != null">
+        #{streetname,jdbcType=VARCHAR},
+      </if>
+      <if test="districtid != null">
+        #{districtid,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.MustreetsExample" resultType="java.lang.Long">
+    select count(*) from mustreets
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mustreets
+    <set>
+      <if test="record.streetid != null">
+        streetId = #{record.streetid,jdbcType=BIGINT},
+      </if>
+      <if test="record.streetname != null">
+        streetName = #{record.streetname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.districtid != null">
+        districtId = #{record.districtid,jdbcType=BIGINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mustreets
+    set streetId = #{record.streetid,jdbcType=BIGINT},
+      streetName = #{record.streetname,jdbcType=VARCHAR},
+      districtId = #{record.districtid,jdbcType=BIGINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.Mustreets">
+    update mustreets
+    <set>
+      <if test="streetname != null">
+        streetName = #{streetname,jdbcType=VARCHAR},
+      </if>
+      <if test="districtid != null">
+        districtId = #{districtid,jdbcType=BIGINT},
+      </if>
+    </set>
+    where streetId = #{streetid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Mustreets">
+    update mustreets
+    set streetName = #{streetname,jdbcType=VARCHAR},
+      districtId = #{districtid,jdbcType=BIGINT}
+    where streetId = #{streetid,jdbcType=BIGINT}
+  </update>
+</mapper>

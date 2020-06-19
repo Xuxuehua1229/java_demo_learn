@@ -1,0 +1,648 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.GoodsMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Goods">
+    <id column="goodID" jdbcType="INTEGER" property="goodid" />
+    <result column="activityID" jdbcType="INTEGER" property="activityid" />
+    <result column="goodName" jdbcType="VARCHAR" property="goodname" />
+    <result column="price" jdbcType="VARCHAR" property="price" />
+    <result column="salesprice" jdbcType="VARCHAR" property="salesprice" />
+    <result column="goodnumber" jdbcType="VARCHAR" property="goodnumber" />
+    <result column="coupon1" jdbcType="VARCHAR" property="coupon1" />
+    <result column="couponrule1" jdbcType="VARCHAR" property="couponrule1" />
+    <result column="couponruleoff1" jdbcType="VARCHAR" property="couponruleoff1" />
+    <result column="coupon2" jdbcType="VARCHAR" property="coupon2" />
+    <result column="couponrule2" jdbcType="VARCHAR" property="couponrule2" />
+    <result column="couponruleoff2" jdbcType="VARCHAR" property="couponruleoff2" />
+    <result column="coupon3" jdbcType="VARCHAR" property="coupon3" />
+    <result column="couponrule3" jdbcType="VARCHAR" property="couponrule3" />
+    <result column="couponruleoff3" jdbcType="VARCHAR" property="couponruleoff3" />
+    <result column="coupon4" jdbcType="VARCHAR" property="coupon4" />
+    <result column="couponrule4" jdbcType="VARCHAR" property="couponrule4" />
+    <result column="couponruleoff4" jdbcType="VARCHAR" property="couponruleoff4" />
+    <result column="coupon5" jdbcType="VARCHAR" property="coupon5" />
+    <result column="couponrule5" jdbcType="VARCHAR" property="couponrule5" />
+    <result column="couponruleoff5" jdbcType="VARCHAR" property="couponruleoff5" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mulin.bean.GoodsWithBLOBs">
+    <result column="goodDesc" jdbcType="LONGVARCHAR" property="gooddesc" />
+    <result column="goodImg" jdbcType="LONGVARCHAR" property="goodimg" />
+    <result column="mark1" jdbcType="LONGVARCHAR" property="mark1" />
+    <result column="mark2" jdbcType="LONGVARCHAR" property="mark2" />
+    <result column="mark3" jdbcType="LONGVARCHAR" property="mark3" />
+    <result column="mark4" jdbcType="LONGVARCHAR" property="mark4" />
+    <result column="mark5" jdbcType="LONGVARCHAR" property="mark5" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    goodID, activityID, goodName, price, salesprice, goodnumber, coupon1, couponrule1, 
+    couponruleoff1, coupon2, couponrule2, couponruleoff2, coupon3, couponrule3, couponruleoff3, 
+    coupon4, couponrule4, couponruleoff4, coupon5, couponrule5, couponruleoff5
+  </sql>
+  <sql id="Blob_Column_List">
+    goodDesc, goodImg, mark1, mark2, mark3, mark4, mark5
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.mulin.bean.GoodsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.mulin.bean.GoodsExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from goods
+    where goodID = #{goodid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from goods
+    where goodID = #{goodid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.GoodsExample">
+    delete from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.GoodsWithBLOBs">
+    insert into goods (goodID, activityID, goodName, 
+      price, salesprice, goodnumber, 
+      coupon1, couponrule1, couponruleoff1, 
+      coupon2, couponrule2, couponruleoff2, 
+      coupon3, couponrule3, couponruleoff3, 
+      coupon4, couponrule4, couponruleoff4, 
+      coupon5, couponrule5, couponruleoff5, 
+      goodDesc, goodImg, mark1, 
+      mark2, mark3, mark4, 
+      mark5)
+    values (#{goodid,jdbcType=INTEGER}, #{activityid,jdbcType=INTEGER}, #{goodname,jdbcType=VARCHAR}, 
+      #{price,jdbcType=VARCHAR}, #{salesprice,jdbcType=VARCHAR}, #{goodnumber,jdbcType=VARCHAR}, 
+      #{coupon1,jdbcType=VARCHAR}, #{couponrule1,jdbcType=VARCHAR}, #{couponruleoff1,jdbcType=VARCHAR}, 
+      #{coupon2,jdbcType=VARCHAR}, #{couponrule2,jdbcType=VARCHAR}, #{couponruleoff2,jdbcType=VARCHAR}, 
+      #{coupon3,jdbcType=VARCHAR}, #{couponrule3,jdbcType=VARCHAR}, #{couponruleoff3,jdbcType=VARCHAR}, 
+      #{coupon4,jdbcType=VARCHAR}, #{couponrule4,jdbcType=VARCHAR}, #{couponruleoff4,jdbcType=VARCHAR}, 
+      #{coupon5,jdbcType=VARCHAR}, #{couponrule5,jdbcType=VARCHAR}, #{couponruleoff5,jdbcType=VARCHAR}, 
+      #{gooddesc,jdbcType=LONGVARCHAR}, #{goodimg,jdbcType=LONGVARCHAR}, #{mark1,jdbcType=LONGVARCHAR}, 
+      #{mark2,jdbcType=LONGVARCHAR}, #{mark3,jdbcType=LONGVARCHAR}, #{mark4,jdbcType=LONGVARCHAR}, 
+      #{mark5,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.GoodsWithBLOBs">
+    insert into goods
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="goodid != null">
+        goodID,
+      </if>
+      <if test="activityid != null">
+        activityID,
+      </if>
+      <if test="goodname != null">
+        goodName,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="salesprice != null">
+        salesprice,
+      </if>
+      <if test="goodnumber != null">
+        goodnumber,
+      </if>
+      <if test="coupon1 != null">
+        coupon1,
+      </if>
+      <if test="couponrule1 != null">
+        couponrule1,
+      </if>
+      <if test="couponruleoff1 != null">
+        couponruleoff1,
+      </if>
+      <if test="coupon2 != null">
+        coupon2,
+      </if>
+      <if test="couponrule2 != null">
+        couponrule2,
+      </if>
+      <if test="couponruleoff2 != null">
+        couponruleoff2,
+      </if>
+      <if test="coupon3 != null">
+        coupon3,
+      </if>
+      <if test="couponrule3 != null">
+        couponrule3,
+      </if>
+      <if test="couponruleoff3 != null">
+        couponruleoff3,
+      </if>
+      <if test="coupon4 != null">
+        coupon4,
+      </if>
+      <if test="couponrule4 != null">
+        couponrule4,
+      </if>
+      <if test="couponruleoff4 != null">
+        couponruleoff4,
+      </if>
+      <if test="coupon5 != null">
+        coupon5,
+      </if>
+      <if test="couponrule5 != null">
+        couponrule5,
+      </if>
+      <if test="couponruleoff5 != null">
+        couponruleoff5,
+      </if>
+      <if test="gooddesc != null">
+        goodDesc,
+      </if>
+      <if test="goodimg != null">
+        goodImg,
+      </if>
+      <if test="mark1 != null">
+        mark1,
+      </if>
+      <if test="mark2 != null">
+        mark2,
+      </if>
+      <if test="mark3 != null">
+        mark3,
+      </if>
+      <if test="mark4 != null">
+        mark4,
+      </if>
+      <if test="mark5 != null">
+        mark5,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="goodid != null">
+        #{goodid,jdbcType=INTEGER},
+      </if>
+      <if test="activityid != null">
+        #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="goodname != null">
+        #{goodname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="salesprice != null">
+        #{salesprice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodnumber != null">
+        #{goodnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon1 != null">
+        #{coupon1,jdbcType=VARCHAR},
+      </if>
+      <if test="couponrule1 != null">
+        #{couponrule1,jdbcType=VARCHAR},
+      </if>
+      <if test="couponruleoff1 != null">
+        #{couponruleoff1,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon2 != null">
+        #{coupon2,jdbcType=VARCHAR},
+      </if>
+      <if test="couponrule2 != null">
+        #{couponrule2,jdbcType=VARCHAR},
+      </if>
+      <if test="couponruleoff2 != null">
+        #{couponruleoff2,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon3 != null">
+        #{coupon3,jdbcType=VARCHAR},
+      </if>
+      <if test="couponrule3 != null">
+        #{couponrule3,jdbcType=VARCHAR},
+      </if>
+      <if test="couponruleoff3 != null">
+        #{couponruleoff3,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon4 != null">
+        #{coupon4,jdbcType=VARCHAR},
+      </if>
+      <if test="couponrule4 != null">
+        #{couponrule4,jdbcType=VARCHAR},
+      </if>
+      <if test="couponruleoff4 != null">
+        #{couponruleoff4,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon5 != null">
+        #{coupon5,jdbcType=VARCHAR},
+      </if>
+      <if test="couponrule5 != null">
+        #{couponrule5,jdbcType=VARCHAR},
+      </if>
+      <if test="couponruleoff5 != null">
+        #{couponruleoff5,jdbcType=VARCHAR},
+      </if>
+      <if test="gooddesc != null">
+        #{gooddesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodimg != null">
+        #{goodimg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mark1 != null">
+        #{mark1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mark2 != null">
+        #{mark2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mark3 != null">
+        #{mark3,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mark4 != null">
+        #{mark4,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mark5 != null">
+        #{mark5,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.GoodsExample" resultType="java.lang.Long">
+    select count(*) from goods
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update goods
+    <set>
+      <if test="record.goodid != null">
+        goodID = #{record.goodid,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityid != null">
+        activityID = #{record.activityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.goodname != null">
+        goodName = #{record.goodname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.price != null">
+        price = #{record.price,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salesprice != null">
+        salesprice = #{record.salesprice,jdbcType=VARCHAR},
+      </if>
+      <if test="record.goodnumber != null">
+        goodnumber = #{record.goodnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coupon1 != null">
+        coupon1 = #{record.coupon1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponrule1 != null">
+        couponrule1 = #{record.couponrule1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponruleoff1 != null">
+        couponruleoff1 = #{record.couponruleoff1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coupon2 != null">
+        coupon2 = #{record.coupon2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponrule2 != null">
+        couponrule2 = #{record.couponrule2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponruleoff2 != null">
+        couponruleoff2 = #{record.couponruleoff2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coupon3 != null">
+        coupon3 = #{record.coupon3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponrule3 != null">
+        couponrule3 = #{record.couponrule3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponruleoff3 != null">
+        couponruleoff3 = #{record.couponruleoff3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coupon4 != null">
+        coupon4 = #{record.coupon4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponrule4 != null">
+        couponrule4 = #{record.couponrule4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponruleoff4 != null">
+        couponruleoff4 = #{record.couponruleoff4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.coupon5 != null">
+        coupon5 = #{record.coupon5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponrule5 != null">
+        couponrule5 = #{record.couponrule5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.couponruleoff5 != null">
+        couponruleoff5 = #{record.couponruleoff5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.gooddesc != null">
+        goodDesc = #{record.gooddesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.goodimg != null">
+        goodImg = #{record.goodimg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.mark1 != null">
+        mark1 = #{record.mark1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.mark2 != null">
+        mark2 = #{record.mark2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.mark3 != null">
+        mark3 = #{record.mark3,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.mark4 != null">
+        mark4 = #{record.mark4,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.mark5 != null">
+        mark5 = #{record.mark5,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update goods
+    set goodID = #{record.goodid,jdbcType=INTEGER},
+      activityID = #{record.activityid,jdbcType=INTEGER},
+      goodName = #{record.goodname,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR},
+      salesprice = #{record.salesprice,jdbcType=VARCHAR},
+      goodnumber = #{record.goodnumber,jdbcType=VARCHAR},
+      coupon1 = #{record.coupon1,jdbcType=VARCHAR},
+      couponrule1 = #{record.couponrule1,jdbcType=VARCHAR},
+      couponruleoff1 = #{record.couponruleoff1,jdbcType=VARCHAR},
+      coupon2 = #{record.coupon2,jdbcType=VARCHAR},
+      couponrule2 = #{record.couponrule2,jdbcType=VARCHAR},
+      couponruleoff2 = #{record.couponruleoff2,jdbcType=VARCHAR},
+      coupon3 = #{record.coupon3,jdbcType=VARCHAR},
+      couponrule3 = #{record.couponrule3,jdbcType=VARCHAR},
+      couponruleoff3 = #{record.couponruleoff3,jdbcType=VARCHAR},
+      coupon4 = #{record.coupon4,jdbcType=VARCHAR},
+      couponrule4 = #{record.couponrule4,jdbcType=VARCHAR},
+      couponruleoff4 = #{record.couponruleoff4,jdbcType=VARCHAR},
+      coupon5 = #{record.coupon5,jdbcType=VARCHAR},
+      couponrule5 = #{record.couponrule5,jdbcType=VARCHAR},
+      couponruleoff5 = #{record.couponruleoff5,jdbcType=VARCHAR},
+      goodDesc = #{record.gooddesc,jdbcType=LONGVARCHAR},
+      goodImg = #{record.goodimg,jdbcType=LONGVARCHAR},
+      mark1 = #{record.mark1,jdbcType=LONGVARCHAR},
+      mark2 = #{record.mark2,jdbcType=LONGVARCHAR},
+      mark3 = #{record.mark3,jdbcType=LONGVARCHAR},
+      mark4 = #{record.mark4,jdbcType=LONGVARCHAR},
+      mark5 = #{record.mark5,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update goods
+    set goodID = #{record.goodid,jdbcType=INTEGER},
+      activityID = #{record.activityid,jdbcType=INTEGER},
+      goodName = #{record.goodname,jdbcType=VARCHAR},
+      price = #{record.price,jdbcType=VARCHAR},
+      salesprice = #{record.salesprice,jdbcType=VARCHAR},
+      goodnumber = #{record.goodnumber,jdbcType=VARCHAR},
+      coupon1 = #{record.coupon1,jdbcType=VARCHAR},
+      couponrule1 = #{record.couponrule1,jdbcType=VARCHAR},
+      couponruleoff1 = #{record.couponruleoff1,jdbcType=VARCHAR},
+      coupon2 = #{record.coupon2,jdbcType=VARCHAR},
+      couponrule2 = #{record.couponrule2,jdbcType=VARCHAR},
+      couponruleoff2 = #{record.couponruleoff2,jdbcType=VARCHAR},
+      coupon3 = #{record.coupon3,jdbcType=VARCHAR},
+      couponrule3 = #{record.couponrule3,jdbcType=VARCHAR},
+      couponruleoff3 = #{record.couponruleoff3,jdbcType=VARCHAR},
+      coupon4 = #{record.coupon4,jdbcType=VARCHAR},
+      couponrule4 = #{record.couponrule4,jdbcType=VARCHAR},
+      couponruleoff4 = #{record.couponruleoff4,jdbcType=VARCHAR},
+      coupon5 = #{record.coupon5,jdbcType=VARCHAR},
+      couponrule5 = #{record.couponrule5,jdbcType=VARCHAR},
+      couponruleoff5 = #{record.couponruleoff5,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.GoodsWithBLOBs">
+    update goods
+    <set>
+      <if test="activityid != null">
+        activityID = #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="goodname != null">
+        goodName = #{goodname,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=VARCHAR},
+      </if>
+      <if test="salesprice != null">
+        salesprice = #{salesprice,jdbcType=VARCHAR},
+      </if>
+      <if test="goodnumber != null">
+        goodnumber = #{goodnumber,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon1 != null">
+        coupon1 = #{coupon1,jdbcType=VARCHAR},
+      </if>
+      <if test="couponrule1 != null">
+        couponrule1 = #{couponrule1,jdbcType=VARCHAR},
+      </if>
+      <if test="couponruleoff1 != null">
+        couponruleoff1 = #{couponruleoff1,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon2 != null">
+        coupon2 = #{coupon2,jdbcType=VARCHAR},
+      </if>
+      <if test="couponrule2 != null">
+        couponrule2 = #{couponrule2,jdbcType=VARCHAR},
+      </if>
+      <if test="couponruleoff2 != null">
+        couponruleoff2 = #{couponruleoff2,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon3 != null">
+        coupon3 = #{coupon3,jdbcType=VARCHAR},
+      </if>
+      <if test="couponrule3 != null">
+        couponrule3 = #{couponrule3,jdbcType=VARCHAR},
+      </if>
+      <if test="couponruleoff3 != null">
+        couponruleoff3 = #{couponruleoff3,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon4 != null">
+        coupon4 = #{coupon4,jdbcType=VARCHAR},
+      </if>
+      <if test="couponrule4 != null">
+        couponrule4 = #{couponrule4,jdbcType=VARCHAR},
+      </if>
+      <if test="couponruleoff4 != null">
+        couponruleoff4 = #{couponruleoff4,jdbcType=VARCHAR},
+      </if>
+      <if test="coupon5 != null">
+        coupon5 = #{coupon5,jdbcType=VARCHAR},
+      </if>
+      <if test="couponrule5 != null">
+        couponrule5 = #{couponrule5,jdbcType=VARCHAR},
+      </if>
+      <if test="couponruleoff5 != null">
+        couponruleoff5 = #{couponruleoff5,jdbcType=VARCHAR},
+      </if>
+      <if test="gooddesc != null">
+        goodDesc = #{gooddesc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="goodimg != null">
+        goodImg = #{goodimg,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mark1 != null">
+        mark1 = #{mark1,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mark2 != null">
+        mark2 = #{mark2,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mark3 != null">
+        mark3 = #{mark3,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mark4 != null">
+        mark4 = #{mark4,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="mark5 != null">
+        mark5 = #{mark5,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where goodID = #{goodid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mulin.bean.GoodsWithBLOBs">
+    update goods
+    set activityID = #{activityid,jdbcType=INTEGER},
+      goodName = #{goodname,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      salesprice = #{salesprice,jdbcType=VARCHAR},
+      goodnumber = #{goodnumber,jdbcType=VARCHAR},
+      coupon1 = #{coupon1,jdbcType=VARCHAR},
+      couponrule1 = #{couponrule1,jdbcType=VARCHAR},
+      couponruleoff1 = #{couponruleoff1,jdbcType=VARCHAR},
+      coupon2 = #{coupon2,jdbcType=VARCHAR},
+      couponrule2 = #{couponrule2,jdbcType=VARCHAR},
+      couponruleoff2 = #{couponruleoff2,jdbcType=VARCHAR},
+      coupon3 = #{coupon3,jdbcType=VARCHAR},
+      couponrule3 = #{couponrule3,jdbcType=VARCHAR},
+      couponruleoff3 = #{couponruleoff3,jdbcType=VARCHAR},
+      coupon4 = #{coupon4,jdbcType=VARCHAR},
+      couponrule4 = #{couponrule4,jdbcType=VARCHAR},
+      couponruleoff4 = #{couponruleoff4,jdbcType=VARCHAR},
+      coupon5 = #{coupon5,jdbcType=VARCHAR},
+      couponrule5 = #{couponrule5,jdbcType=VARCHAR},
+      couponruleoff5 = #{couponruleoff5,jdbcType=VARCHAR},
+      goodDesc = #{gooddesc,jdbcType=LONGVARCHAR},
+      goodImg = #{goodimg,jdbcType=LONGVARCHAR},
+      mark1 = #{mark1,jdbcType=LONGVARCHAR},
+      mark2 = #{mark2,jdbcType=LONGVARCHAR},
+      mark3 = #{mark3,jdbcType=LONGVARCHAR},
+      mark4 = #{mark4,jdbcType=LONGVARCHAR},
+      mark5 = #{mark5,jdbcType=LONGVARCHAR}
+    where goodID = #{goodid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Goods">
+    update goods
+    set activityID = #{activityid,jdbcType=INTEGER},
+      goodName = #{goodname,jdbcType=VARCHAR},
+      price = #{price,jdbcType=VARCHAR},
+      salesprice = #{salesprice,jdbcType=VARCHAR},
+      goodnumber = #{goodnumber,jdbcType=VARCHAR},
+      coupon1 = #{coupon1,jdbcType=VARCHAR},
+      couponrule1 = #{couponrule1,jdbcType=VARCHAR},
+      couponruleoff1 = #{couponruleoff1,jdbcType=VARCHAR},
+      coupon2 = #{coupon2,jdbcType=VARCHAR},
+      couponrule2 = #{couponrule2,jdbcType=VARCHAR},
+      couponruleoff2 = #{couponruleoff2,jdbcType=VARCHAR},
+      coupon3 = #{coupon3,jdbcType=VARCHAR},
+      couponrule3 = #{couponrule3,jdbcType=VARCHAR},
+      couponruleoff3 = #{couponruleoff3,jdbcType=VARCHAR},
+      coupon4 = #{coupon4,jdbcType=VARCHAR},
+      couponrule4 = #{couponrule4,jdbcType=VARCHAR},
+      couponruleoff4 = #{couponruleoff4,jdbcType=VARCHAR},
+      coupon5 = #{coupon5,jdbcType=VARCHAR},
+      couponrule5 = #{couponrule5,jdbcType=VARCHAR},
+      couponruleoff5 = #{couponruleoff5,jdbcType=VARCHAR}
+    where goodID = #{goodid,jdbcType=INTEGER}
+  </update>
+</mapper>

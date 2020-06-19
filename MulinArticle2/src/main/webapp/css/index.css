@@ -1,0 +1,49 @@
+@CHARSET "UTF-8";
+
+#loginBox{
+	width:250px;
+	text-align:center;	
+}
+#loginBox p{
+	margin:10px auto;
+}
+#codeBg{	
+	width:150px;
+	height:30px;
+	margin:10px auto;
+	position:relative;
+}
+#codeBg img{
+	width:150px;
+	height:30px;
+	position:absolute;
+	top:0;
+	left:0;
+	z-index:1;
+	opacity:0.5;
+}
+.code 
+{
+ font-family:Arial;
+ font-style:italic;
+ color:blue;
+ border:0;
+ letter-spacing:3px;
+ font-weight:bolder;
+ cursor:pointer;
+ width:150px;
+ height:30px;
+ line-height:30px;
+ text-align:center;
+ vertical-align:middle;
+ position:absolute;
+ top:0;
+ left:0;
+}
+a 
+{
+ text-decoration:none;
+ font-size:12px;
+ color:#288bc4;
+ cursor:pointer;
+}

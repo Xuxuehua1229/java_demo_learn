@@ -1,0 +1,756 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.MuactivitytempMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Muactivitytemp">
+    <id column="activityID" jdbcType="INTEGER" property="activityid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="zongJieActivityID" jdbcType="INTEGER" property="zongjieactivityid" />
+    <result column="creationDate" jdbcType="VARCHAR" property="creationdate" />
+    <result column="updateDate" jdbcType="VARCHAR" property="updatedate" />
+    <result column="delDate" jdbcType="VARCHAR" property="deldate" />
+    <result column="roomID" jdbcType="INTEGER" property="roomid" />
+    <result column="isDel" jdbcType="INTEGER" property="isdel" />
+    <result column="type" jdbcType="INTEGER" property="type" />
+    <result column="subjectID" jdbcType="INTEGER" property="subjectid" />
+    <result column="favorite" jdbcType="VARCHAR" property="favorite" />
+    <result column="signtype" jdbcType="VARCHAR" property="signtype" />
+    <result column="signDate" jdbcType="VARCHAR" property="signdate" />
+    <result column="startDate" jdbcType="VARCHAR" property="startdate" />
+    <result column="endDate" jdbcType="VARCHAR" property="enddate" />
+    <result column="joinnum" jdbcType="VARCHAR" property="joinnum" />
+    <result column="addr" jdbcType="VARCHAR" property="addr" />
+    <result column="mark1" jdbcType="VARCHAR" property="mark1" />
+    <result column="mark2" jdbcType="VARCHAR" property="mark2" />
+    <result column="mark3" jdbcType="VARCHAR" property="mark3" />
+    <result column="mark4" jdbcType="VARCHAR" property="mark4" />
+    <result column="mark5" jdbcType="VARCHAR" property="mark5" />
+    <result column="mark6" jdbcType="VARCHAR" property="mark6" />
+    <result column="mark7" jdbcType="VARCHAR" property="mark7" />
+    <result column="mark8" jdbcType="VARCHAR" property="mark8" />
+    <result column="mark9" jdbcType="VARCHAR" property="mark9" />
+    <result column="mark10" jdbcType="VARCHAR" property="mark10" />
+    <result column="actType" jdbcType="VARCHAR" property="acttype" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mulin.bean.MuactivitytempWithBLOBs">
+    <result column="title" jdbcType="LONGVARCHAR" property="title" />
+    <result column="context" jdbcType="LONGVARCHAR" property="context" />
+    <result column="text" jdbcType="LONGVARCHAR" property="text" />
+    <result column="audioURL" jdbcType="LONGVARCHAR" property="audiourl" />
+    <result column="videoURL" jdbcType="LONGVARCHAR" property="videourl" />
+    <result column="sequence" jdbcType="LONGVARCHAR" property="sequence" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    activityID, username, zongJieActivityID, creationDate, updateDate, delDate, roomID, 
+    isDel, type, subjectID, favorite, signtype, signDate, startDate, endDate, joinnum, 
+    addr, mark1, mark2, mark3, mark4, mark5, mark6, mark7, mark8, mark9, mark10, actType
+  </sql>
+  <sql id="Blob_Column_List">
+    title, context, text, audioURL, videoURL, sequence
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.mulin.bean.MuactivitytempExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from muactivitytemp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.mulin.bean.MuactivitytempExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from muactivitytemp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from muactivitytemp
+    where activityID = #{activityid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from muactivitytemp
+    where activityID = #{activityid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.MuactivitytempExample">
+    delete from muactivitytemp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.MuactivitytempWithBLOBs">
+    insert into muactivitytemp (activityID, username, zongJieActivityID, 
+      creationDate, updateDate, delDate, 
+      roomID, isDel, type, 
+      subjectID, favorite, signtype, 
+      signDate, startDate, endDate, 
+      joinnum, addr, mark1, 
+      mark2, mark3, mark4, 
+      mark5, mark6, mark7, 
+      mark8, mark9, mark10, 
+      actType, title, context, 
+      text, audioURL, videoURL, 
+      sequence)
+    values (#{activityid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{zongjieactivityid,jdbcType=INTEGER}, 
+      #{creationdate,jdbcType=VARCHAR}, #{updatedate,jdbcType=VARCHAR}, #{deldate,jdbcType=VARCHAR}, 
+      #{roomid,jdbcType=INTEGER}, #{isdel,jdbcType=INTEGER}, #{type,jdbcType=INTEGER}, 
+      #{subjectid,jdbcType=INTEGER}, #{favorite,jdbcType=VARCHAR}, #{signtype,jdbcType=VARCHAR}, 
+      #{signdate,jdbcType=VARCHAR}, #{startdate,jdbcType=VARCHAR}, #{enddate,jdbcType=VARCHAR}, 
+      #{joinnum,jdbcType=VARCHAR}, #{addr,jdbcType=VARCHAR}, #{mark1,jdbcType=VARCHAR}, 
+      #{mark2,jdbcType=VARCHAR}, #{mark3,jdbcType=VARCHAR}, #{mark4,jdbcType=VARCHAR}, 
+      #{mark5,jdbcType=VARCHAR}, #{mark6,jdbcType=VARCHAR}, #{mark7,jdbcType=VARCHAR}, 
+      #{mark8,jdbcType=VARCHAR}, #{mark9,jdbcType=VARCHAR}, #{mark10,jdbcType=VARCHAR}, 
+      #{acttype,jdbcType=VARCHAR}, #{title,jdbcType=LONGVARCHAR}, #{context,jdbcType=LONGVARCHAR}, 
+      #{text,jdbcType=LONGVARCHAR}, #{audiourl,jdbcType=LONGVARCHAR}, #{videourl,jdbcType=LONGVARCHAR}, 
+      #{sequence,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.MuactivitytempWithBLOBs">
+    insert into muactivitytemp
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activityid != null">
+        activityID,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="zongjieactivityid != null">
+        zongJieActivityID,
+      </if>
+      <if test="creationdate != null">
+        creationDate,
+      </if>
+      <if test="updatedate != null">
+        updateDate,
+      </if>
+      <if test="deldate != null">
+        delDate,
+      </if>
+      <if test="roomid != null">
+        roomID,
+      </if>
+      <if test="isdel != null">
+        isDel,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="subjectid != null">
+        subjectID,
+      </if>
+      <if test="favorite != null">
+        favorite,
+      </if>
+      <if test="signtype != null">
+        signtype,
+      </if>
+      <if test="signdate != null">
+        signDate,
+      </if>
+      <if test="startdate != null">
+        startDate,
+      </if>
+      <if test="enddate != null">
+        endDate,
+      </if>
+      <if test="joinnum != null">
+        joinnum,
+      </if>
+      <if test="addr != null">
+        addr,
+      </if>
+      <if test="mark1 != null">
+        mark1,
+      </if>
+      <if test="mark2 != null">
+        mark2,
+      </if>
+      <if test="mark3 != null">
+        mark3,
+      </if>
+      <if test="mark4 != null">
+        mark4,
+      </if>
+      <if test="mark5 != null">
+        mark5,
+      </if>
+      <if test="mark6 != null">
+        mark6,
+      </if>
+      <if test="mark7 != null">
+        mark7,
+      </if>
+      <if test="mark8 != null">
+        mark8,
+      </if>
+      <if test="mark9 != null">
+        mark9,
+      </if>
+      <if test="mark10 != null">
+        mark10,
+      </if>
+      <if test="acttype != null">
+        actType,
+      </if>
+      <if test="title != null">
+        title,
+      </if>
+      <if test="context != null">
+        context,
+      </if>
+      <if test="text != null">
+        text,
+      </if>
+      <if test="audiourl != null">
+        audioURL,
+      </if>
+      <if test="videourl != null">
+        videoURL,
+      </if>
+      <if test="sequence != null">
+        sequence,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activityid != null">
+        #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="zongjieactivityid != null">
+        #{zongjieactivityid,jdbcType=INTEGER},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null">
+        #{updatedate,jdbcType=VARCHAR},
+      </if>
+      <if test="deldate != null">
+        #{deldate,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null">
+        #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="favorite != null">
+        #{favorite,jdbcType=VARCHAR},
+      </if>
+      <if test="signtype != null">
+        #{signtype,jdbcType=VARCHAR},
+      </if>
+      <if test="signdate != null">
+        #{signdate,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="joinnum != null">
+        #{joinnum,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="mark1 != null">
+        #{mark1,jdbcType=VARCHAR},
+      </if>
+      <if test="mark2 != null">
+        #{mark2,jdbcType=VARCHAR},
+      </if>
+      <if test="mark3 != null">
+        #{mark3,jdbcType=VARCHAR},
+      </if>
+      <if test="mark4 != null">
+        #{mark4,jdbcType=VARCHAR},
+      </if>
+      <if test="mark5 != null">
+        #{mark5,jdbcType=VARCHAR},
+      </if>
+      <if test="mark6 != null">
+        #{mark6,jdbcType=VARCHAR},
+      </if>
+      <if test="mark7 != null">
+        #{mark7,jdbcType=VARCHAR},
+      </if>
+      <if test="mark8 != null">
+        #{mark8,jdbcType=VARCHAR},
+      </if>
+      <if test="mark9 != null">
+        #{mark9,jdbcType=VARCHAR},
+      </if>
+      <if test="mark10 != null">
+        #{mark10,jdbcType=VARCHAR},
+      </if>
+      <if test="acttype != null">
+        #{acttype,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        #{title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="context != null">
+        #{context,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="text != null">
+        #{text,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="audiourl != null">
+        #{audiourl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="videourl != null">
+        #{videourl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sequence != null">
+        #{sequence,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.MuactivitytempExample" resultType="java.lang.Long">
+    select count(*) from muactivitytemp
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update muactivitytemp
+    <set>
+      <if test="record.activityid != null">
+        activityID = #{record.activityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.zongjieactivityid != null">
+        zongJieActivityID = #{record.zongjieactivityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.creationdate != null">
+        creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.updatedate != null">
+        updateDate = #{record.updatedate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.deldate != null">
+        delDate = #{record.deldate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomid != null">
+        roomID = #{record.roomid,jdbcType=INTEGER},
+      </if>
+      <if test="record.isdel != null">
+        isDel = #{record.isdel,jdbcType=INTEGER},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=INTEGER},
+      </if>
+      <if test="record.subjectid != null">
+        subjectID = #{record.subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="record.favorite != null">
+        favorite = #{record.favorite,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signtype != null">
+        signtype = #{record.signtype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.signdate != null">
+        signDate = #{record.signdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.startdate != null">
+        startDate = #{record.startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.enddate != null">
+        endDate = #{record.enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.joinnum != null">
+        joinnum = #{record.joinnum,jdbcType=VARCHAR},
+      </if>
+      <if test="record.addr != null">
+        addr = #{record.addr,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark1 != null">
+        mark1 = #{record.mark1,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark2 != null">
+        mark2 = #{record.mark2,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark3 != null">
+        mark3 = #{record.mark3,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark4 != null">
+        mark4 = #{record.mark4,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark5 != null">
+        mark5 = #{record.mark5,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark6 != null">
+        mark6 = #{record.mark6,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark7 != null">
+        mark7 = #{record.mark7,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark8 != null">
+        mark8 = #{record.mark8,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark9 != null">
+        mark9 = #{record.mark9,jdbcType=VARCHAR},
+      </if>
+      <if test="record.mark10 != null">
+        mark10 = #{record.mark10,jdbcType=VARCHAR},
+      </if>
+      <if test="record.acttype != null">
+        actType = #{record.acttype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.title != null">
+        title = #{record.title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.context != null">
+        context = #{record.context,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.text != null">
+        text = #{record.text,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.audiourl != null">
+        audioURL = #{record.audiourl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.videourl != null">
+        videoURL = #{record.videourl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="record.sequence != null">
+        sequence = #{record.sequence,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update muactivitytemp
+    set activityID = #{record.activityid,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      zongJieActivityID = #{record.zongjieactivityid,jdbcType=INTEGER},
+      creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      updateDate = #{record.updatedate,jdbcType=VARCHAR},
+      delDate = #{record.deldate,jdbcType=VARCHAR},
+      roomID = #{record.roomid,jdbcType=INTEGER},
+      isDel = #{record.isdel,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      subjectID = #{record.subjectid,jdbcType=INTEGER},
+      favorite = #{record.favorite,jdbcType=VARCHAR},
+      signtype = #{record.signtype,jdbcType=VARCHAR},
+      signDate = #{record.signdate,jdbcType=VARCHAR},
+      startDate = #{record.startdate,jdbcType=VARCHAR},
+      endDate = #{record.enddate,jdbcType=VARCHAR},
+      joinnum = #{record.joinnum,jdbcType=VARCHAR},
+      addr = #{record.addr,jdbcType=VARCHAR},
+      mark1 = #{record.mark1,jdbcType=VARCHAR},
+      mark2 = #{record.mark2,jdbcType=VARCHAR},
+      mark3 = #{record.mark3,jdbcType=VARCHAR},
+      mark4 = #{record.mark4,jdbcType=VARCHAR},
+      mark5 = #{record.mark5,jdbcType=VARCHAR},
+      mark6 = #{record.mark6,jdbcType=VARCHAR},
+      mark7 = #{record.mark7,jdbcType=VARCHAR},
+      mark8 = #{record.mark8,jdbcType=VARCHAR},
+      mark9 = #{record.mark9,jdbcType=VARCHAR},
+      mark10 = #{record.mark10,jdbcType=VARCHAR},
+      actType = #{record.acttype,jdbcType=VARCHAR},
+      title = #{record.title,jdbcType=LONGVARCHAR},
+      context = #{record.context,jdbcType=LONGVARCHAR},
+      text = #{record.text,jdbcType=LONGVARCHAR},
+      audioURL = #{record.audiourl,jdbcType=LONGVARCHAR},
+      videoURL = #{record.videourl,jdbcType=LONGVARCHAR},
+      sequence = #{record.sequence,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update muactivitytemp
+    set activityID = #{record.activityid,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      zongJieActivityID = #{record.zongjieactivityid,jdbcType=INTEGER},
+      creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      updateDate = #{record.updatedate,jdbcType=VARCHAR},
+      delDate = #{record.deldate,jdbcType=VARCHAR},
+      roomID = #{record.roomid,jdbcType=INTEGER},
+      isDel = #{record.isdel,jdbcType=INTEGER},
+      type = #{record.type,jdbcType=INTEGER},
+      subjectID = #{record.subjectid,jdbcType=INTEGER},
+      favorite = #{record.favorite,jdbcType=VARCHAR},
+      signtype = #{record.signtype,jdbcType=VARCHAR},
+      signDate = #{record.signdate,jdbcType=VARCHAR},
+      startDate = #{record.startdate,jdbcType=VARCHAR},
+      endDate = #{record.enddate,jdbcType=VARCHAR},
+      joinnum = #{record.joinnum,jdbcType=VARCHAR},
+      addr = #{record.addr,jdbcType=VARCHAR},
+      mark1 = #{record.mark1,jdbcType=VARCHAR},
+      mark2 = #{record.mark2,jdbcType=VARCHAR},
+      mark3 = #{record.mark3,jdbcType=VARCHAR},
+      mark4 = #{record.mark4,jdbcType=VARCHAR},
+      mark5 = #{record.mark5,jdbcType=VARCHAR},
+      mark6 = #{record.mark6,jdbcType=VARCHAR},
+      mark7 = #{record.mark7,jdbcType=VARCHAR},
+      mark8 = #{record.mark8,jdbcType=VARCHAR},
+      mark9 = #{record.mark9,jdbcType=VARCHAR},
+      mark10 = #{record.mark10,jdbcType=VARCHAR},
+      actType = #{record.acttype,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.MuactivitytempWithBLOBs">
+    update muactivitytemp
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="zongjieactivityid != null">
+        zongJieActivityID = #{zongjieactivityid,jdbcType=INTEGER},
+      </if>
+      <if test="creationdate != null">
+        creationDate = #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="updatedate != null">
+        updateDate = #{updatedate,jdbcType=VARCHAR},
+      </if>
+      <if test="deldate != null">
+        delDate = #{deldate,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        roomID = #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="isdel != null">
+        isDel = #{isdel,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=INTEGER},
+      </if>
+      <if test="subjectid != null">
+        subjectID = #{subjectid,jdbcType=INTEGER},
+      </if>
+      <if test="favorite != null">
+        favorite = #{favorite,jdbcType=VARCHAR},
+      </if>
+      <if test="signtype != null">
+        signtype = #{signtype,jdbcType=VARCHAR},
+      </if>
+      <if test="signdate != null">
+        signDate = #{signdate,jdbcType=VARCHAR},
+      </if>
+      <if test="startdate != null">
+        startDate = #{startdate,jdbcType=VARCHAR},
+      </if>
+      <if test="enddate != null">
+        endDate = #{enddate,jdbcType=VARCHAR},
+      </if>
+      <if test="joinnum != null">
+        joinnum = #{joinnum,jdbcType=VARCHAR},
+      </if>
+      <if test="addr != null">
+        addr = #{addr,jdbcType=VARCHAR},
+      </if>
+      <if test="mark1 != null">
+        mark1 = #{mark1,jdbcType=VARCHAR},
+      </if>
+      <if test="mark2 != null">
+        mark2 = #{mark2,jdbcType=VARCHAR},
+      </if>
+      <if test="mark3 != null">
+        mark3 = #{mark3,jdbcType=VARCHAR},
+      </if>
+      <if test="mark4 != null">
+        mark4 = #{mark4,jdbcType=VARCHAR},
+      </if>
+      <if test="mark5 != null">
+        mark5 = #{mark5,jdbcType=VARCHAR},
+      </if>
+      <if test="mark6 != null">
+        mark6 = #{mark6,jdbcType=VARCHAR},
+      </if>
+      <if test="mark7 != null">
+        mark7 = #{mark7,jdbcType=VARCHAR},
+      </if>
+      <if test="mark8 != null">
+        mark8 = #{mark8,jdbcType=VARCHAR},
+      </if>
+      <if test="mark9 != null">
+        mark9 = #{mark9,jdbcType=VARCHAR},
+      </if>
+      <if test="mark10 != null">
+        mark10 = #{mark10,jdbcType=VARCHAR},
+      </if>
+      <if test="acttype != null">
+        actType = #{acttype,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null">
+        title = #{title,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="context != null">
+        context = #{context,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="text != null">
+        text = #{text,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="audiourl != null">
+        audioURL = #{audiourl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="videourl != null">
+        videoURL = #{videourl,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="sequence != null">
+        sequence = #{sequence,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where activityID = #{activityid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mulin.bean.MuactivitytempWithBLOBs">
+    update muactivitytemp
+    set username = #{username,jdbcType=VARCHAR},
+      zongJieActivityID = #{zongjieactivityid,jdbcType=INTEGER},
+      creationDate = #{creationdate,jdbcType=VARCHAR},
+      updateDate = #{updatedate,jdbcType=VARCHAR},
+      delDate = #{deldate,jdbcType=VARCHAR},
+      roomID = #{roomid,jdbcType=INTEGER},
+      isDel = #{isdel,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      subjectID = #{subjectid,jdbcType=INTEGER},
+      favorite = #{favorite,jdbcType=VARCHAR},
+      signtype = #{signtype,jdbcType=VARCHAR},
+      signDate = #{signdate,jdbcType=VARCHAR},
+      startDate = #{startdate,jdbcType=VARCHAR},
+      endDate = #{enddate,jdbcType=VARCHAR},
+      joinnum = #{joinnum,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      mark1 = #{mark1,jdbcType=VARCHAR},
+      mark2 = #{mark2,jdbcType=VARCHAR},
+      mark3 = #{mark3,jdbcType=VARCHAR},
+      mark4 = #{mark4,jdbcType=VARCHAR},
+      mark5 = #{mark5,jdbcType=VARCHAR},
+      mark6 = #{mark6,jdbcType=VARCHAR},
+      mark7 = #{mark7,jdbcType=VARCHAR},
+      mark8 = #{mark8,jdbcType=VARCHAR},
+      mark9 = #{mark9,jdbcType=VARCHAR},
+      mark10 = #{mark10,jdbcType=VARCHAR},
+      actType = #{acttype,jdbcType=VARCHAR},
+      title = #{title,jdbcType=LONGVARCHAR},
+      context = #{context,jdbcType=LONGVARCHAR},
+      text = #{text,jdbcType=LONGVARCHAR},
+      audioURL = #{audiourl,jdbcType=LONGVARCHAR},
+      videoURL = #{videourl,jdbcType=LONGVARCHAR},
+      sequence = #{sequence,jdbcType=LONGVARCHAR}
+    where activityID = #{activityid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Muactivitytemp">
+    update muactivitytemp
+    set username = #{username,jdbcType=VARCHAR},
+      zongJieActivityID = #{zongjieactivityid,jdbcType=INTEGER},
+      creationDate = #{creationdate,jdbcType=VARCHAR},
+      updateDate = #{updatedate,jdbcType=VARCHAR},
+      delDate = #{deldate,jdbcType=VARCHAR},
+      roomID = #{roomid,jdbcType=INTEGER},
+      isDel = #{isdel,jdbcType=INTEGER},
+      type = #{type,jdbcType=INTEGER},
+      subjectID = #{subjectid,jdbcType=INTEGER},
+      favorite = #{favorite,jdbcType=VARCHAR},
+      signtype = #{signtype,jdbcType=VARCHAR},
+      signDate = #{signdate,jdbcType=VARCHAR},
+      startDate = #{startdate,jdbcType=VARCHAR},
+      endDate = #{enddate,jdbcType=VARCHAR},
+      joinnum = #{joinnum,jdbcType=VARCHAR},
+      addr = #{addr,jdbcType=VARCHAR},
+      mark1 = #{mark1,jdbcType=VARCHAR},
+      mark2 = #{mark2,jdbcType=VARCHAR},
+      mark3 = #{mark3,jdbcType=VARCHAR},
+      mark4 = #{mark4,jdbcType=VARCHAR},
+      mark5 = #{mark5,jdbcType=VARCHAR},
+      mark6 = #{mark6,jdbcType=VARCHAR},
+      mark7 = #{mark7,jdbcType=VARCHAR},
+      mark8 = #{mark8,jdbcType=VARCHAR},
+      mark9 = #{mark9,jdbcType=VARCHAR},
+      mark10 = #{mark10,jdbcType=VARCHAR},
+      actType = #{acttype,jdbcType=VARCHAR}
+    where activityID = #{activityid,jdbcType=INTEGER}
+  </update>
+</mapper>

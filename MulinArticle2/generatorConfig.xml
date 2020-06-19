@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+
+<generatorConfiguration>
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- 配置数据库连接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://112.124.44.25:3306/openfire?createDatabaseIfNotExist=true&amp;useUnicode=true&amp;characterEncoding=utf-8"
+			userId="root" password="mulin_2014">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- 配置javaBean生成文件的位置 -->
+		<javaModelGenerator targetPackage="com.mulin.bean"
+			targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- 配置 sql 映射文件生成的位置 -->
+		<sqlMapGenerator targetPackage="mapper"
+			targetProject=".\src\main\resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+
+		<!-- 配置 dao 接口生成的位置 mapper 接口 -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.mulin.dao" targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- table 指定每个表的生成策略 -->
+		<table tableName="muuserneighbour"
+			domainObjectName="Muuserneighbour"></table>
+		<table tableName="ofuser" domainObjectName="Ofuser"></table>
+		<table tableName="ofuserprop" domainObjectName="Ofuserprop"></table>
+		<table tableName="ofroster" domainObjectName="Ofroster"></table>
+		<table tableName="muprovince" domainObjectName="Muprovince"></table>
+		<table tableName="mucity" domainObjectName="Mucity"></table>
+		<table tableName="mudistrict" domainObjectName="Mudistrict"></table>
+		<table tableName="mustreets" domainObjectName="Mustreets"></table>
+		<table tableName="mucommittee" domainObjectName="Mucommittee"></table>
+		<table tableName="mualbum" domainObjectName="Mualbum"></table>
+		<table tableName="muactivity" domainObjectName="Muactivity"></table>
+		<table tableName="muactivityrelease"
+			domainObjectName="Muactivityrelease"></table>
+		<table tableName="muactivitytemp"
+			domainObjectName="Muactivitytemp"></table>
+		<table tableName="mucomment" domainObjectName="Mucomment"></table>
+		<table tableName="mucollection" domainObjectName="Mucollection"></table>
+		<table tableName="mugoods" domainObjectName="Mugoods"></table>
+		<table tableName="mutheme" domainObjectName="Mutheme"></table>
+		<table tableName="muwechat" domainObjectName="Muwechat"></table>
+		<table tableName="muexamplerooms"
+			domainObjectName="Muexamplerooms"></table>
+		<table tableName="muexampleroominfo"
+			domainObjectName="Muexampleroominfo"></table>
+		<table tableName="muqrcode" domainObjectName="Muqrcode"></table>
+		<table tableName="muactiveuserinfo"
+			domainObjectName="Muactiveuserinfo"></table>
+		<table tableName="ofmucroom" domainObjectName="Ofmucroom"></table>
+		<table tableName="ofmucmember" domainObjectName="Ofmucmember"></table>
+		<table tableName="ofmucaffiliation"
+			domainObjectName="Ofmucaffiliation"></table>
+		<table tableName="ofmucroomprop"
+			domainObjectName="Ofmucroomprop"></table>
+		<table tableName="ofproperty" domainObjectName="Ofproperty"></table>
+		<table tableName="mufamily" domainObjectName="Mufamily"></table>
+		<table tableName="mufamilyuser" domainObjectName="Mufamilyuser"></table>
+		<table tableName="goods" domainObjectName="Goods"></table>
+	</context>
+</generatorConfiguration>

@@ -1,0 +1,291 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.MuactivityMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Muactivity">
+    <id column="activityID" jdbcType="INTEGER" property="activityid" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="creationDate" jdbcType="VARCHAR" property="creationdate" />
+    <result column="context" jdbcType="VARCHAR" property="context" />
+    <result column="roomID" jdbcType="INTEGER" property="roomid" />
+    <result column="roomName" jdbcType="VARCHAR" property="roomname" />
+    <result column="activityType" jdbcType="VARCHAR" property="activitytype" />
+    <result column="lastAuthor" jdbcType="VARCHAR" property="lastauthor" />
+    <result column="familyName" jdbcType="VARCHAR" property="familyname" />
+    <result column="isTop" jdbcType="INTEGER" property="istop" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    activityID, username, creationDate, context, roomID, roomName, activityType, lastAuthor, 
+    familyName, isTop
+  </sql>
+  <select id="selectByExample" parameterType="com.mulin.bean.MuactivityExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from muactivity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from muactivity
+    where activityID = #{activityid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from muactivity
+    where activityID = #{activityid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.MuactivityExample">
+    delete from muactivity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.Muactivity">
+    insert into muactivity (activityID, username, creationDate, 
+      context, roomID, roomName, 
+      activityType, lastAuthor, familyName, 
+      isTop)
+    values (#{activityid,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{creationdate,jdbcType=VARCHAR}, 
+      #{context,jdbcType=VARCHAR}, #{roomid,jdbcType=INTEGER}, #{roomname,jdbcType=VARCHAR}, 
+      #{activitytype,jdbcType=VARCHAR}, #{lastauthor,jdbcType=VARCHAR}, #{familyname,jdbcType=VARCHAR}, 
+      #{istop,jdbcType=INTEGER})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.Muactivity">
+    insert into muactivity
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="activityid != null">
+        activityID,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="creationdate != null">
+        creationDate,
+      </if>
+      <if test="context != null">
+        context,
+      </if>
+      <if test="roomid != null">
+        roomID,
+      </if>
+      <if test="roomname != null">
+        roomName,
+      </if>
+      <if test="activitytype != null">
+        activityType,
+      </if>
+      <if test="lastauthor != null">
+        lastAuthor,
+      </if>
+      <if test="familyname != null">
+        familyName,
+      </if>
+      <if test="istop != null">
+        isTop,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="activityid != null">
+        #{activityid,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null">
+        #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="roomname != null">
+        #{roomname,jdbcType=VARCHAR},
+      </if>
+      <if test="activitytype != null">
+        #{activitytype,jdbcType=VARCHAR},
+      </if>
+      <if test="lastauthor != null">
+        #{lastauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="familyname != null">
+        #{familyname,jdbcType=VARCHAR},
+      </if>
+      <if test="istop != null">
+        #{istop,jdbcType=INTEGER},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.MuactivityExample" resultType="java.lang.Long">
+    select count(*) from muactivity
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update muactivity
+    <set>
+      <if test="record.activityid != null">
+        activityID = #{record.activityid,jdbcType=INTEGER},
+      </if>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationdate != null">
+        creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.context != null">
+        context = #{record.context,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomid != null">
+        roomID = #{record.roomid,jdbcType=INTEGER},
+      </if>
+      <if test="record.roomname != null">
+        roomName = #{record.roomname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.activitytype != null">
+        activityType = #{record.activitytype,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lastauthor != null">
+        lastAuthor = #{record.lastauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="record.familyname != null">
+        familyName = #{record.familyname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.istop != null">
+        isTop = #{record.istop,jdbcType=INTEGER},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update muactivity
+    set activityID = #{record.activityid,jdbcType=INTEGER},
+      username = #{record.username,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      context = #{record.context,jdbcType=VARCHAR},
+      roomID = #{record.roomid,jdbcType=INTEGER},
+      roomName = #{record.roomname,jdbcType=VARCHAR},
+      activityType = #{record.activitytype,jdbcType=VARCHAR},
+      lastAuthor = #{record.lastauthor,jdbcType=VARCHAR},
+      familyName = #{record.familyname,jdbcType=VARCHAR},
+      isTop = #{record.istop,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.Muactivity">
+    update muactivity
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        creationDate = #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="context != null">
+        context = #{context,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        roomID = #{roomid,jdbcType=INTEGER},
+      </if>
+      <if test="roomname != null">
+        roomName = #{roomname,jdbcType=VARCHAR},
+      </if>
+      <if test="activitytype != null">
+        activityType = #{activitytype,jdbcType=VARCHAR},
+      </if>
+      <if test="lastauthor != null">
+        lastAuthor = #{lastauthor,jdbcType=VARCHAR},
+      </if>
+      <if test="familyname != null">
+        familyName = #{familyname,jdbcType=VARCHAR},
+      </if>
+      <if test="istop != null">
+        isTop = #{istop,jdbcType=INTEGER},
+      </if>
+    </set>
+    where activityID = #{activityid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Muactivity">
+    update muactivity
+    set username = #{username,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=VARCHAR},
+      context = #{context,jdbcType=VARCHAR},
+      roomID = #{roomid,jdbcType=INTEGER},
+      roomName = #{roomname,jdbcType=VARCHAR},
+      activityType = #{activitytype,jdbcType=VARCHAR},
+      lastAuthor = #{lastauthor,jdbcType=VARCHAR},
+      familyName = #{familyname,jdbcType=VARCHAR},
+      isTop = #{istop,jdbcType=INTEGER}
+    where activityID = #{activityid,jdbcType=INTEGER}
+  </update>
+</mapper>

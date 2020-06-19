@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.MucommentMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Mucomment">
+    <id column="commentId" jdbcType="INTEGER" property="commentid" />
+    <result column="activityId" jdbcType="VARCHAR" property="activityid" />
+    <result column="commentName" jdbcType="VARCHAR" property="commentname" />
+    <result column="writeBackName" jdbcType="VARCHAR" property="writebackname" />
+    <result column="creationDate" jdbcType="VARCHAR" property="creationdate" />
+    <result column="writeBackType" jdbcType="INTEGER" property="writebacktype" />
+    <result column="sayGood" jdbcType="INTEGER" property="saygood" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mulin.bean.Mucomment">
+    <result column="commentContext" jdbcType="LONGVARCHAR" property="commentcontext" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    commentId, activityId, commentName, writeBackName, creationDate, writeBackType, sayGood
+  </sql>
+  <sql id="Blob_Column_List">
+    commentContext
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.mulin.bean.MucommentExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mucomment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.mulin.bean.MucommentExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from mucomment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from mucomment
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from mucomment
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.MucommentExample">
+    delete from mucomment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.Mucomment">
+    insert into mucomment (commentId, activityId, commentName, 
+      writeBackName, creationDate, writeBackType, 
+      sayGood, commentContext)
+    values (#{commentid,jdbcType=INTEGER}, #{activityid,jdbcType=VARCHAR}, #{commentname,jdbcType=VARCHAR}, 
+      #{writebackname,jdbcType=VARCHAR}, #{creationdate,jdbcType=VARCHAR}, #{writebacktype,jdbcType=INTEGER}, 
+      #{saygood,jdbcType=INTEGER}, #{commentcontext,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.Mucomment">
+    insert into mucomment
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="commentid != null">
+        commentId,
+      </if>
+      <if test="activityid != null">
+        activityId,
+      </if>
+      <if test="commentname != null">
+        commentName,
+      </if>
+      <if test="writebackname != null">
+        writeBackName,
+      </if>
+      <if test="creationdate != null">
+        creationDate,
+      </if>
+      <if test="writebacktype != null">
+        writeBackType,
+      </if>
+      <if test="saygood != null">
+        sayGood,
+      </if>
+      <if test="commentcontext != null">
+        commentContext,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="commentid != null">
+        #{commentid,jdbcType=INTEGER},
+      </if>
+      <if test="activityid != null">
+        #{activityid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentname != null">
+        #{commentname,jdbcType=VARCHAR},
+      </if>
+      <if test="writebackname != null">
+        #{writebackname,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="writebacktype != null">
+        #{writebacktype,jdbcType=INTEGER},
+      </if>
+      <if test="saygood != null">
+        #{saygood,jdbcType=INTEGER},
+      </if>
+      <if test="commentcontext != null">
+        #{commentcontext,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.MucommentExample" resultType="java.lang.Long">
+    select count(*) from mucomment
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update mucomment
+    <set>
+      <if test="record.commentid != null">
+        commentId = #{record.commentid,jdbcType=INTEGER},
+      </if>
+      <if test="record.activityid != null">
+        activityId = #{record.activityid,jdbcType=VARCHAR},
+      </if>
+      <if test="record.commentname != null">
+        commentName = #{record.commentname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.writebackname != null">
+        writeBackName = #{record.writebackname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationdate != null">
+        creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="record.writebacktype != null">
+        writeBackType = #{record.writebacktype,jdbcType=INTEGER},
+      </if>
+      <if test="record.saygood != null">
+        sayGood = #{record.saygood,jdbcType=INTEGER},
+      </if>
+      <if test="record.commentcontext != null">
+        commentContext = #{record.commentcontext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update mucomment
+    set commentId = #{record.commentid,jdbcType=INTEGER},
+      activityId = #{record.activityid,jdbcType=VARCHAR},
+      commentName = #{record.commentname,jdbcType=VARCHAR},
+      writeBackName = #{record.writebackname,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      writeBackType = #{record.writebacktype,jdbcType=INTEGER},
+      sayGood = #{record.saygood,jdbcType=INTEGER},
+      commentContext = #{record.commentcontext,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update mucomment
+    set commentId = #{record.commentid,jdbcType=INTEGER},
+      activityId = #{record.activityid,jdbcType=VARCHAR},
+      commentName = #{record.commentname,jdbcType=VARCHAR},
+      writeBackName = #{record.writebackname,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=VARCHAR},
+      writeBackType = #{record.writebacktype,jdbcType=INTEGER},
+      sayGood = #{record.saygood,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.Mucomment">
+    update mucomment
+    <set>
+      <if test="activityid != null">
+        activityId = #{activityid,jdbcType=VARCHAR},
+      </if>
+      <if test="commentname != null">
+        commentName = #{commentname,jdbcType=VARCHAR},
+      </if>
+      <if test="writebackname != null">
+        writeBackName = #{writebackname,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        creationDate = #{creationdate,jdbcType=VARCHAR},
+      </if>
+      <if test="writebacktype != null">
+        writeBackType = #{writebacktype,jdbcType=INTEGER},
+      </if>
+      <if test="saygood != null">
+        sayGood = #{saygood,jdbcType=INTEGER},
+      </if>
+      <if test="commentcontext != null">
+        commentContext = #{commentcontext,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mulin.bean.Mucomment">
+    update mucomment
+    set activityId = #{activityid,jdbcType=VARCHAR},
+      commentName = #{commentname,jdbcType=VARCHAR},
+      writeBackName = #{writebackname,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=VARCHAR},
+      writeBackType = #{writebacktype,jdbcType=INTEGER},
+      sayGood = #{saygood,jdbcType=INTEGER},
+      commentContext = #{commentcontext,jdbcType=LONGVARCHAR}
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Mucomment">
+    update mucomment
+    set activityId = #{activityid,jdbcType=VARCHAR},
+      commentName = #{commentname,jdbcType=VARCHAR},
+      writeBackName = #{writebackname,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=VARCHAR},
+      writeBackType = #{writebacktype,jdbcType=INTEGER},
+      sayGood = #{saygood,jdbcType=INTEGER}
+    where commentId = #{commentid,jdbcType=INTEGER}
+  </update>
+</mapper>

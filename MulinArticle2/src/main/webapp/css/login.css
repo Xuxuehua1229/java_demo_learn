@@ -1,0 +1,22 @@
+html{height:100%;}
+body{height:100%;background: url(../images/login_bg.jpg) no-repeat top left;background-size:100% 100%;}
+#login_box{width:594px;height:360px;position:absolute;left: 50%;margin-left: -297px;}
+#log{width:100%;text-align:center;margin-top:100px;}
+#log_img{width:225px;}
+#text{text-align:center;height:112px;line-height:112px;font-size:20px;color:#fff;}
+#login_form{width:100%;display:block;}
+#input_box{float:left;width:512px;background:#ebeaec;border-radius:3px;padding:9px 13px;box-shadow:0 0 1px 0 rgba(31,40,74,1);}
+input{float:left;display:block;width:213px;height:55px;border:1px solid #b1b3b8;border-radius:3px;background:#f5f6f7;
+    padding:0 17px;line-height:55px;font-size:18px;color:#767c8b;font-family:"[AdobeHeitiStd]";}
+#jid,#vaildCode{margin-right:13px;}
+#jid,#password{margin-bottom:9px;}
+#codeBg{float:left;width:150px;height:55px;position:relative;}
+#codeBg img{width:150px;height:55px;position:absolute;top:0;left:0;z-index:1;opacity:0.5;}
+.code{font-family:Arial;font-style:italic;color:blue;border:0;letter-spacing:3px;font-weight:bolder;cursor:pointer;
+    width:150px;height:55px;line-height:55px;text-align:center;vertical-align:middle;position:absolute;
+    top:0;left:0;font-size:22px;}
+#input_box a{display:block;float:left;width:75px;line-height:28px;text-decoration:none;font-size:20px;color:#288bc4;cursor:pointer;
+    padding-left:19px;}
+#loginBtn{float:left;width:56px;height:52px;line-height:52px;text-align:center;background:#ff6600;color:#fff;
+    font-family:"[AdobeHeitiStd]";font-size:18px;border-top-right-radius:3px;border-bottom-right-radius:3px;
+    box-shadow:0 0 1px 0 rgba(197,166,136,1);margin-top:45px;}

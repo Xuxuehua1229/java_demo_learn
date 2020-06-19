@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.OfmucroomMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Ofmucroom">
+    <id column="serviceID" jdbcType="BIGINT" property="serviceid" />
+    <id column="name" jdbcType="VARCHAR" property="name" />
+    <result column="roomID" jdbcType="BIGINT" property="roomid" />
+    <result column="creationDate" jdbcType="CHAR" property="creationdate" />
+    <result column="modificationDate" jdbcType="CHAR" property="modificationdate" />
+    <result column="naturalName" jdbcType="VARCHAR" property="naturalname" />
+    <result column="description" jdbcType="VARCHAR" property="description" />
+    <result column="lockedDate" jdbcType="CHAR" property="lockeddate" />
+    <result column="emptyDate" jdbcType="CHAR" property="emptydate" />
+    <result column="canChangeSubject" jdbcType="TINYINT" property="canchangesubject" />
+    <result column="maxUsers" jdbcType="INTEGER" property="maxusers" />
+    <result column="publicRoom" jdbcType="TINYINT" property="publicroom" />
+    <result column="moderated" jdbcType="TINYINT" property="moderated" />
+    <result column="membersOnly" jdbcType="TINYINT" property="membersonly" />
+    <result column="canInvite" jdbcType="TINYINT" property="caninvite" />
+    <result column="roomPassword" jdbcType="VARCHAR" property="roompassword" />
+    <result column="canDiscoverJID" jdbcType="TINYINT" property="candiscoverjid" />
+    <result column="logEnabled" jdbcType="TINYINT" property="logenabled" />
+    <result column="subject" jdbcType="VARCHAR" property="subject" />
+    <result column="rolesToBroadcast" jdbcType="TINYINT" property="rolestobroadcast" />
+    <result column="useReservedNick" jdbcType="TINYINT" property="usereservednick" />
+    <result column="canChangeNick" jdbcType="TINYINT" property="canchangenick" />
+    <result column="canRegister" jdbcType="TINYINT" property="canregister" />
+    <result column="allowpm" jdbcType="TINYINT" property="allowpm" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    serviceID, name, roomID, creationDate, modificationDate, naturalName, description, 
+    lockedDate, emptyDate, canChangeSubject, maxUsers, publicRoom, moderated, membersOnly, 
+    canInvite, roomPassword, canDiscoverJID, logEnabled, subject, rolesToBroadcast, useReservedNick, 
+    canChangeNick, canRegister, allowpm
+  </sql>
+  <select id="selectByExample" parameterType="com.mulin.bean.OfmucroomExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ofmucroom
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="com.mulin.bean.OfmucroomKey" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from ofmucroom
+    where serviceID = #{serviceid,jdbcType=BIGINT}
+      and name = #{name,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.mulin.bean.OfmucroomKey">
+    delete from ofmucroom
+    where serviceID = #{serviceid,jdbcType=BIGINT}
+      and name = #{name,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.OfmucroomExample">
+    delete from ofmucroom
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.Ofmucroom">
+    insert into ofmucroom (serviceID, name, roomID, 
+      creationDate, modificationDate, naturalName, 
+      description, lockedDate, emptyDate, 
+      canChangeSubject, maxUsers, publicRoom, 
+      moderated, membersOnly, canInvite, 
+      roomPassword, canDiscoverJID, logEnabled, 
+      subject, rolesToBroadcast, useReservedNick, 
+      canChangeNick, canRegister, allowpm
+      )
+    values (#{serviceid,jdbcType=BIGINT}, #{name,jdbcType=VARCHAR}, #{roomid,jdbcType=BIGINT}, 
+      #{creationdate,jdbcType=CHAR}, #{modificationdate,jdbcType=CHAR}, #{naturalname,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{lockeddate,jdbcType=CHAR}, #{emptydate,jdbcType=CHAR}, 
+      #{canchangesubject,jdbcType=TINYINT}, #{maxusers,jdbcType=INTEGER}, #{publicroom,jdbcType=TINYINT}, 
+      #{moderated,jdbcType=TINYINT}, #{membersonly,jdbcType=TINYINT}, #{caninvite,jdbcType=TINYINT}, 
+      #{roompassword,jdbcType=VARCHAR}, #{candiscoverjid,jdbcType=TINYINT}, #{logenabled,jdbcType=TINYINT}, 
+      #{subject,jdbcType=VARCHAR}, #{rolestobroadcast,jdbcType=TINYINT}, #{usereservednick,jdbcType=TINYINT}, 
+      #{canchangenick,jdbcType=TINYINT}, #{canregister,jdbcType=TINYINT}, #{allowpm,jdbcType=TINYINT}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.Ofmucroom">
+    insert into ofmucroom
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="serviceid != null">
+        serviceID,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="roomid != null">
+        roomID,
+      </if>
+      <if test="creationdate != null">
+        creationDate,
+      </if>
+      <if test="modificationdate != null">
+        modificationDate,
+      </if>
+      <if test="naturalname != null">
+        naturalName,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="lockeddate != null">
+        lockedDate,
+      </if>
+      <if test="emptydate != null">
+        emptyDate,
+      </if>
+      <if test="canchangesubject != null">
+        canChangeSubject,
+      </if>
+      <if test="maxusers != null">
+        maxUsers,
+      </if>
+      <if test="publicroom != null">
+        publicRoom,
+      </if>
+      <if test="moderated != null">
+        moderated,
+      </if>
+      <if test="membersonly != null">
+        membersOnly,
+      </if>
+      <if test="caninvite != null">
+        canInvite,
+      </if>
+      <if test="roompassword != null">
+        roomPassword,
+      </if>
+      <if test="candiscoverjid != null">
+        canDiscoverJID,
+      </if>
+      <if test="logenabled != null">
+        logEnabled,
+      </if>
+      <if test="subject != null">
+        subject,
+      </if>
+      <if test="rolestobroadcast != null">
+        rolesToBroadcast,
+      </if>
+      <if test="usereservednick != null">
+        useReservedNick,
+      </if>
+      <if test="canchangenick != null">
+        canChangeNick,
+      </if>
+      <if test="canregister != null">
+        canRegister,
+      </if>
+      <if test="allowpm != null">
+        allowpm,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="serviceid != null">
+        #{serviceid,jdbcType=BIGINT},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="roomid != null">
+        #{roomid,jdbcType=BIGINT},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=CHAR},
+      </if>
+      <if test="modificationdate != null">
+        #{modificationdate,jdbcType=CHAR},
+      </if>
+      <if test="naturalname != null">
+        #{naturalname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="lockeddate != null">
+        #{lockeddate,jdbcType=CHAR},
+      </if>
+      <if test="emptydate != null">
+        #{emptydate,jdbcType=CHAR},
+      </if>
+      <if test="canchangesubject != null">
+        #{canchangesubject,jdbcType=TINYINT},
+      </if>
+      <if test="maxusers != null">
+        #{maxusers,jdbcType=INTEGER},
+      </if>
+      <if test="publicroom != null">
+        #{publicroom,jdbcType=TINYINT},
+      </if>
+      <if test="moderated != null">
+        #{moderated,jdbcType=TINYINT},
+      </if>
+      <if test="membersonly != null">
+        #{membersonly,jdbcType=TINYINT},
+      </if>
+      <if test="caninvite != null">
+        #{caninvite,jdbcType=TINYINT},
+      </if>
+      <if test="roompassword != null">
+        #{roompassword,jdbcType=VARCHAR},
+      </if>
+      <if test="candiscoverjid != null">
+        #{candiscoverjid,jdbcType=TINYINT},
+      </if>
+      <if test="logenabled != null">
+        #{logenabled,jdbcType=TINYINT},
+      </if>
+      <if test="subject != null">
+        #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="rolestobroadcast != null">
+        #{rolestobroadcast,jdbcType=TINYINT},
+      </if>
+      <if test="usereservednick != null">
+        #{usereservednick,jdbcType=TINYINT},
+      </if>
+      <if test="canchangenick != null">
+        #{canchangenick,jdbcType=TINYINT},
+      </if>
+      <if test="canregister != null">
+        #{canregister,jdbcType=TINYINT},
+      </if>
+      <if test="allowpm != null">
+        #{allowpm,jdbcType=TINYINT},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.OfmucroomExample" resultType="java.lang.Long">
+    select count(*) from ofmucroom
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ofmucroom
+    <set>
+      <if test="record.serviceid != null">
+        serviceID = #{record.serviceid,jdbcType=BIGINT},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.roomid != null">
+        roomID = #{record.roomid,jdbcType=BIGINT},
+      </if>
+      <if test="record.creationdate != null">
+        creationDate = #{record.creationdate,jdbcType=CHAR},
+      </if>
+      <if test="record.modificationdate != null">
+        modificationDate = #{record.modificationdate,jdbcType=CHAR},
+      </if>
+      <if test="record.naturalname != null">
+        naturalName = #{record.naturalname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.description != null">
+        description = #{record.description,jdbcType=VARCHAR},
+      </if>
+      <if test="record.lockeddate != null">
+        lockedDate = #{record.lockeddate,jdbcType=CHAR},
+      </if>
+      <if test="record.emptydate != null">
+        emptyDate = #{record.emptydate,jdbcType=CHAR},
+      </if>
+      <if test="record.canchangesubject != null">
+        canChangeSubject = #{record.canchangesubject,jdbcType=TINYINT},
+      </if>
+      <if test="record.maxusers != null">
+        maxUsers = #{record.maxusers,jdbcType=INTEGER},
+      </if>
+      <if test="record.publicroom != null">
+        publicRoom = #{record.publicroom,jdbcType=TINYINT},
+      </if>
+      <if test="record.moderated != null">
+        moderated = #{record.moderated,jdbcType=TINYINT},
+      </if>
+      <if test="record.membersonly != null">
+        membersOnly = #{record.membersonly,jdbcType=TINYINT},
+      </if>
+      <if test="record.caninvite != null">
+        canInvite = #{record.caninvite,jdbcType=TINYINT},
+      </if>
+      <if test="record.roompassword != null">
+        roomPassword = #{record.roompassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.candiscoverjid != null">
+        canDiscoverJID = #{record.candiscoverjid,jdbcType=TINYINT},
+      </if>
+      <if test="record.logenabled != null">
+        logEnabled = #{record.logenabled,jdbcType=TINYINT},
+      </if>
+      <if test="record.subject != null">
+        subject = #{record.subject,jdbcType=VARCHAR},
+      </if>
+      <if test="record.rolestobroadcast != null">
+        rolesToBroadcast = #{record.rolestobroadcast,jdbcType=TINYINT},
+      </if>
+      <if test="record.usereservednick != null">
+        useReservedNick = #{record.usereservednick,jdbcType=TINYINT},
+      </if>
+      <if test="record.canchangenick != null">
+        canChangeNick = #{record.canchangenick,jdbcType=TINYINT},
+      </if>
+      <if test="record.canregister != null">
+        canRegister = #{record.canregister,jdbcType=TINYINT},
+      </if>
+      <if test="record.allowpm != null">
+        allowpm = #{record.allowpm,jdbcType=TINYINT},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ofmucroom
+    set serviceID = #{record.serviceid,jdbcType=BIGINT},
+      name = #{record.name,jdbcType=VARCHAR},
+      roomID = #{record.roomid,jdbcType=BIGINT},
+      creationDate = #{record.creationdate,jdbcType=CHAR},
+      modificationDate = #{record.modificationdate,jdbcType=CHAR},
+      naturalName = #{record.naturalname,jdbcType=VARCHAR},
+      description = #{record.description,jdbcType=VARCHAR},
+      lockedDate = #{record.lockeddate,jdbcType=CHAR},
+      emptyDate = #{record.emptydate,jdbcType=CHAR},
+      canChangeSubject = #{record.canchangesubject,jdbcType=TINYINT},
+      maxUsers = #{record.maxusers,jdbcType=INTEGER},
+      publicRoom = #{record.publicroom,jdbcType=TINYINT},
+      moderated = #{record.moderated,jdbcType=TINYINT},
+      membersOnly = #{record.membersonly,jdbcType=TINYINT},
+      canInvite = #{record.caninvite,jdbcType=TINYINT},
+      roomPassword = #{record.roompassword,jdbcType=VARCHAR},
+      canDiscoverJID = #{record.candiscoverjid,jdbcType=TINYINT},
+      logEnabled = #{record.logenabled,jdbcType=TINYINT},
+      subject = #{record.subject,jdbcType=VARCHAR},
+      rolesToBroadcast = #{record.rolestobroadcast,jdbcType=TINYINT},
+      useReservedNick = #{record.usereservednick,jdbcType=TINYINT},
+      canChangeNick = #{record.canchangenick,jdbcType=TINYINT},
+      canRegister = #{record.canregister,jdbcType=TINYINT},
+      allowpm = #{record.allowpm,jdbcType=TINYINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.Ofmucroom">
+    update ofmucroom
+    <set>
+      <if test="roomid != null">
+        roomID = #{roomid,jdbcType=BIGINT},
+      </if>
+      <if test="creationdate != null">
+        creationDate = #{creationdate,jdbcType=CHAR},
+      </if>
+      <if test="modificationdate != null">
+        modificationDate = #{modificationdate,jdbcType=CHAR},
+      </if>
+      <if test="naturalname != null">
+        naturalName = #{naturalname,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="lockeddate != null">
+        lockedDate = #{lockeddate,jdbcType=CHAR},
+      </if>
+      <if test="emptydate != null">
+        emptyDate = #{emptydate,jdbcType=CHAR},
+      </if>
+      <if test="canchangesubject != null">
+        canChangeSubject = #{canchangesubject,jdbcType=TINYINT},
+      </if>
+      <if test="maxusers != null">
+        maxUsers = #{maxusers,jdbcType=INTEGER},
+      </if>
+      <if test="publicroom != null">
+        publicRoom = #{publicroom,jdbcType=TINYINT},
+      </if>
+      <if test="moderated != null">
+        moderated = #{moderated,jdbcType=TINYINT},
+      </if>
+      <if test="membersonly != null">
+        membersOnly = #{membersonly,jdbcType=TINYINT},
+      </if>
+      <if test="caninvite != null">
+        canInvite = #{caninvite,jdbcType=TINYINT},
+      </if>
+      <if test="roompassword != null">
+        roomPassword = #{roompassword,jdbcType=VARCHAR},
+      </if>
+      <if test="candiscoverjid != null">
+        canDiscoverJID = #{candiscoverjid,jdbcType=TINYINT},
+      </if>
+      <if test="logenabled != null">
+        logEnabled = #{logenabled,jdbcType=TINYINT},
+      </if>
+      <if test="subject != null">
+        subject = #{subject,jdbcType=VARCHAR},
+      </if>
+      <if test="rolestobroadcast != null">
+        rolesToBroadcast = #{rolestobroadcast,jdbcType=TINYINT},
+      </if>
+      <if test="usereservednick != null">
+        useReservedNick = #{usereservednick,jdbcType=TINYINT},
+      </if>
+      <if test="canchangenick != null">
+        canChangeNick = #{canchangenick,jdbcType=TINYINT},
+      </if>
+      <if test="canregister != null">
+        canRegister = #{canregister,jdbcType=TINYINT},
+      </if>
+      <if test="allowpm != null">
+        allowpm = #{allowpm,jdbcType=TINYINT},
+      </if>
+    </set>
+    where serviceID = #{serviceid,jdbcType=BIGINT}
+      and name = #{name,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Ofmucroom">
+    update ofmucroom
+    set roomID = #{roomid,jdbcType=BIGINT},
+      creationDate = #{creationdate,jdbcType=CHAR},
+      modificationDate = #{modificationdate,jdbcType=CHAR},
+      naturalName = #{naturalname,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      lockedDate = #{lockeddate,jdbcType=CHAR},
+      emptyDate = #{emptydate,jdbcType=CHAR},
+      canChangeSubject = #{canchangesubject,jdbcType=TINYINT},
+      maxUsers = #{maxusers,jdbcType=INTEGER},
+      publicRoom = #{publicroom,jdbcType=TINYINT},
+      moderated = #{moderated,jdbcType=TINYINT},
+      membersOnly = #{membersonly,jdbcType=TINYINT},
+      canInvite = #{caninvite,jdbcType=TINYINT},
+      roomPassword = #{roompassword,jdbcType=VARCHAR},
+      canDiscoverJID = #{candiscoverjid,jdbcType=TINYINT},
+      logEnabled = #{logenabled,jdbcType=TINYINT},
+      subject = #{subject,jdbcType=VARCHAR},
+      rolesToBroadcast = #{rolestobroadcast,jdbcType=TINYINT},
+      useReservedNick = #{usereservednick,jdbcType=TINYINT},
+      canChangeNick = #{canchangenick,jdbcType=TINYINT},
+      canRegister = #{canregister,jdbcType=TINYINT},
+      allowpm = #{allowpm,jdbcType=TINYINT}
+    where serviceID = #{serviceid,jdbcType=BIGINT}
+      and name = #{name,jdbcType=VARCHAR}
+  </update>
+</mapper>

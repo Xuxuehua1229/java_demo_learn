@@ -1,0 +1,377 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.mulin.dao.OfuserMapper">
+  <resultMap id="BaseResultMap" type="com.mulin.bean.Ofuser">
+    <id column="username" jdbcType="VARCHAR" property="username" />
+    <result column="plainPassword" jdbcType="VARCHAR" property="plainpassword" />
+    <result column="encryptedPassword" jdbcType="VARCHAR" property="encryptedpassword" />
+    <result column="name" jdbcType="VARCHAR" property="name" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="creationDate" jdbcType="CHAR" property="creationdate" />
+    <result column="modificationDate" jdbcType="CHAR" property="modificationdate" />
+    <result column="storedKey" jdbcType="VARCHAR" property="storedkey" />
+    <result column="serverKey" jdbcType="VARCHAR" property="serverkey" />
+    <result column="salt" jdbcType="VARCHAR" property="salt" />
+    <result column="iterations" jdbcType="INTEGER" property="iterations" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.mulin.bean.Ofuser">
+    <result column="headImage" jdbcType="LONGVARCHAR" property="headimage" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    username, plainPassword, encryptedPassword, name, email, creationDate, modificationDate, 
+    storedKey, serverKey, salt, iterations
+  </sql>
+  <sql id="Blob_Column_List">
+    headImage
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.mulin.bean.OfuserExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ofuser
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.mulin.bean.OfuserExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from ofuser
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from ofuser
+    where username = #{username,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from ofuser
+    where username = #{username,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.mulin.bean.OfuserExample">
+    delete from ofuser
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.mulin.bean.Ofuser">
+    insert into ofuser (username, plainPassword, encryptedPassword, 
+      name, email, creationDate, 
+      modificationDate, storedKey, serverKey, 
+      salt, iterations, headImage
+      )
+    values (#{username,jdbcType=VARCHAR}, #{plainpassword,jdbcType=VARCHAR}, #{encryptedpassword,jdbcType=VARCHAR}, 
+      #{name,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{creationdate,jdbcType=CHAR}, 
+      #{modificationdate,jdbcType=CHAR}, #{storedkey,jdbcType=VARCHAR}, #{serverkey,jdbcType=VARCHAR}, 
+      #{salt,jdbcType=VARCHAR}, #{iterations,jdbcType=INTEGER}, #{headimage,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.mulin.bean.Ofuser">
+    insert into ofuser
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        username,
+      </if>
+      <if test="plainpassword != null">
+        plainPassword,
+      </if>
+      <if test="encryptedpassword != null">
+        encryptedPassword,
+      </if>
+      <if test="name != null">
+        name,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="creationdate != null">
+        creationDate,
+      </if>
+      <if test="modificationdate != null">
+        modificationDate,
+      </if>
+      <if test="storedkey != null">
+        storedKey,
+      </if>
+      <if test="serverkey != null">
+        serverKey,
+      </if>
+      <if test="salt != null">
+        salt,
+      </if>
+      <if test="iterations != null">
+        iterations,
+      </if>
+      <if test="headimage != null">
+        headImage,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="plainpassword != null">
+        #{plainpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptedpassword != null">
+        #{encryptedpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        #{creationdate,jdbcType=CHAR},
+      </if>
+      <if test="modificationdate != null">
+        #{modificationdate,jdbcType=CHAR},
+      </if>
+      <if test="storedkey != null">
+        #{storedkey,jdbcType=VARCHAR},
+      </if>
+      <if test="serverkey != null">
+        #{serverkey,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="iterations != null">
+        #{iterations,jdbcType=INTEGER},
+      </if>
+      <if test="headimage != null">
+        #{headimage,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.mulin.bean.OfuserExample" resultType="java.lang.Long">
+    select count(*) from ofuser
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update ofuser
+    <set>
+      <if test="record.username != null">
+        username = #{record.username,jdbcType=VARCHAR},
+      </if>
+      <if test="record.plainpassword != null">
+        plainPassword = #{record.plainpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.encryptedpassword != null">
+        encryptedPassword = #{record.encryptedpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="record.name != null">
+        name = #{record.name,jdbcType=VARCHAR},
+      </if>
+      <if test="record.email != null">
+        email = #{record.email,jdbcType=VARCHAR},
+      </if>
+      <if test="record.creationdate != null">
+        creationDate = #{record.creationdate,jdbcType=CHAR},
+      </if>
+      <if test="record.modificationdate != null">
+        modificationDate = #{record.modificationdate,jdbcType=CHAR},
+      </if>
+      <if test="record.storedkey != null">
+        storedKey = #{record.storedkey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.serverkey != null">
+        serverKey = #{record.serverkey,jdbcType=VARCHAR},
+      </if>
+      <if test="record.salt != null">
+        salt = #{record.salt,jdbcType=VARCHAR},
+      </if>
+      <if test="record.iterations != null">
+        iterations = #{record.iterations,jdbcType=INTEGER},
+      </if>
+      <if test="record.headimage != null">
+        headImage = #{record.headimage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update ofuser
+    set username = #{record.username,jdbcType=VARCHAR},
+      plainPassword = #{record.plainpassword,jdbcType=VARCHAR},
+      encryptedPassword = #{record.encryptedpassword,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=CHAR},
+      modificationDate = #{record.modificationdate,jdbcType=CHAR},
+      storedKey = #{record.storedkey,jdbcType=VARCHAR},
+      serverKey = #{record.serverkey,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      iterations = #{record.iterations,jdbcType=INTEGER},
+      headImage = #{record.headimage,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update ofuser
+    set username = #{record.username,jdbcType=VARCHAR},
+      plainPassword = #{record.plainpassword,jdbcType=VARCHAR},
+      encryptedPassword = #{record.encryptedpassword,jdbcType=VARCHAR},
+      name = #{record.name,jdbcType=VARCHAR},
+      email = #{record.email,jdbcType=VARCHAR},
+      creationDate = #{record.creationdate,jdbcType=CHAR},
+      modificationDate = #{record.modificationdate,jdbcType=CHAR},
+      storedKey = #{record.storedkey,jdbcType=VARCHAR},
+      serverKey = #{record.serverkey,jdbcType=VARCHAR},
+      salt = #{record.salt,jdbcType=VARCHAR},
+      iterations = #{record.iterations,jdbcType=INTEGER}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.mulin.bean.Ofuser">
+    update ofuser
+    <set>
+      <if test="plainpassword != null">
+        plainPassword = #{plainpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="encryptedpassword != null">
+        encryptedPassword = #{encryptedpassword,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null">
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="creationdate != null">
+        creationDate = #{creationdate,jdbcType=CHAR},
+      </if>
+      <if test="modificationdate != null">
+        modificationDate = #{modificationdate,jdbcType=CHAR},
+      </if>
+      <if test="storedkey != null">
+        storedKey = #{storedkey,jdbcType=VARCHAR},
+      </if>
+      <if test="serverkey != null">
+        serverKey = #{serverkey,jdbcType=VARCHAR},
+      </if>
+      <if test="salt != null">
+        salt = #{salt,jdbcType=VARCHAR},
+      </if>
+      <if test="iterations != null">
+        iterations = #{iterations,jdbcType=INTEGER},
+      </if>
+      <if test="headimage != null">
+        headImage = #{headimage,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where username = #{username,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.mulin.bean.Ofuser">
+    update ofuser
+    set plainPassword = #{plainpassword,jdbcType=VARCHAR},
+      encryptedPassword = #{encryptedpassword,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=CHAR},
+      modificationDate = #{modificationdate,jdbcType=CHAR},
+      storedKey = #{storedkey,jdbcType=VARCHAR},
+      serverKey = #{serverkey,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      iterations = #{iterations,jdbcType=INTEGER},
+      headImage = #{headimage,jdbcType=LONGVARCHAR}
+    where username = #{username,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.mulin.bean.Ofuser">
+    update ofuser
+    set plainPassword = #{plainpassword,jdbcType=VARCHAR},
+      encryptedPassword = #{encryptedpassword,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      creationDate = #{creationdate,jdbcType=CHAR},
+      modificationDate = #{modificationdate,jdbcType=CHAR},
+      storedKey = #{storedkey,jdbcType=VARCHAR},
+      serverKey = #{serverkey,jdbcType=VARCHAR},
+      salt = #{salt,jdbcType=VARCHAR},
+      iterations = #{iterations,jdbcType=INTEGER}
+    where username = #{username,jdbcType=VARCHAR}
+  </update>
+</mapper>
